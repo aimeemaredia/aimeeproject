@@ -7,7 +7,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import boto3
+import django_heroku
 
 
 # define base subdirectory 
@@ -151,3 +151,4 @@ AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
+django_heroku.settings(locals())
