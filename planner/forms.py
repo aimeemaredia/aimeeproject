@@ -1,9 +1,9 @@
 #imports 
-#from users.models import Profile
+from users.models import Profile
 from django import forms 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-#from . models import Task 
+from . models import Task 
 import datetime
 from django.utils import timezone
 
@@ -14,8 +14,8 @@ class TaskForm(forms.ModelForm):
    type = forms.CharField()                                      #type name with character field
    date = forms.DateField()                                      #date field
    hours_planned = forms.IntegerField()                          #hours planner as integer
-   #priority = forms.ChoiceField(choices = Task.PRIORITY)         #priority as choice field with 3 choices "low","medium","high"
+   priority = forms.ChoiceField(choices = Task.PRIORITY)         #priority as choice field with 3 choices "low","medium","high"
 
-#    class Meta:                                                   #meta class 
-#       # model = Task                                              #model used is Task model
-#        fields = ['complete','task', 'type', 'date','desc','hours_planned','hours_worked','priority']  # necessary fields 
+   class Meta:                                                   #meta class 
+       model = Task                                              #model used is Task model
+       fields = ['complete','task', 'type', 'date','desc','hours_planned','hours_worked','priority']  # necessary fields 
