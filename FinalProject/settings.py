@@ -17,12 +17,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'br#o6*-h8-x_xr0kpx3hrway^5r^gd!*v6m))c*g*_22@t_tjv'
+SECRET_KEY = os.environ.get("SECRET_TRUE")#'br#o6*-h8-x_xr0kpx3hrway^5r^gd!*v6m))c*g*_22@t_tjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://aimeeplannerproject.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = ['aimeeplannerproject.herokuapp.com','127.0.0.1']
 
 
 # Application definition
