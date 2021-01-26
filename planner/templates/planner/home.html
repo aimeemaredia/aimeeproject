@@ -1,0 +1,34 @@
+{% extends 'planner/base.html' %}
+{% block content %}
+{% for task in tasks %}
+<div id="rightnav" class="sidenav">
+    <div class="col-md-12">
+    </div>
+</div>
+
+<div class="card">
+    <h6 class="card-header">
+        {{ task.type }}
+    </h6>
+
+    <div class="container" id="sideentry">
+        {% csrf_token %}
+        <div><a class="title" id="title1" href="{% url 'task-detail' task.id %}">{{ task.task }}</a></div>
+
+        <label for="title" class="text-muted">Priority: </label>
+        <medium class="inline" id="datetext">{{ task.date_added }}</medium>
+
+        <label for="title" class="text-muted">Date Goal: </label>
+        <medium class="inline" id="datetext">{{ task.date }}</medium>
+
+        <div>
+            <button class="button" id="edit">Edit</button>
+            <button class="button" id="done">Done</button>
+            <button class="button" id="delete">Delete</button>
+        </div>
+    </div>
+</div>
+<br>
+
+{% endfor %}
+{% endblock content %}

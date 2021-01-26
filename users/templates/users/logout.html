@@ -1,0 +1,36 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'planner/header.html' %}
+</head>
+
+<body>
+
+    <!-- Side navigation -->
+
+
+
+
+    <main role="main" class="container">
+
+        <div class="content-section">
+            <h1>You have been logged out!</h1>
+<div class="border-top pt-3">
+    <small class="text-muted"> 
+        <a class="ml-2" href="{% url 'login' %}">Log in again</a>
+    </small>
+</div>
+          </div>
+    </main>
+
+
+    {% include 'planner/footer.html' %}
+</body>
+
+</html>
+

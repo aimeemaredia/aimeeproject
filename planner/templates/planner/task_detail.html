@@ -1,0 +1,66 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'planner/header.html' %}
+</head>
+
+<body>
+    {% include 'planner/topnav.html' %}
+    <!-- Side navigation -->
+
+    <div class="sidenav" id="leftnav">
+        <i href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i>
+        <a href="{% url 'planner-dashboard' %}">Dashboard</a>
+        <a class='active' href="{%url 'planner-home'%}">Add Task</a>
+        <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div class='main' id="main">
+
+        <i onclick="openNav()" class="fas fa-bars"></i>
+
+        <article class="card w-75" id="detaildiv">
+            <h6 class="card-header" id='detailheader'>
+                {{ object.type }}
+            </h6>
+            <div class="container" id="sideentry">
+                {% csrf_token %}
+                <div class="title" id="title1">{{ object.task }}</div><br>
+
+                <table>
+                    <tr> <label for="title" id="detailt" class="text-muted">Date Added: </label>
+                        <medium class="" id='detail'>{{ object.date_added }}</medium><br>
+                    </tr>
+                    <tr><br></tr>
+                    <tr><label for="title" id='detailj' class="text-muted">Date Goal: </label>
+                        <medium class="" id="detail">{{ object.date }}</medium><br>
+                    </tr><br>
+                    <tr> <label for="title" id="detailt" class="text-muted">Hours Planned: </label>
+                        <medium class="" id='detail'>{{ object.hours_planned }}</medium><br>
+                    </tr>
+                    <tr><br></tr>
+                    <tr><label for="title" id='detailj' class="text-muted">Priority: </label>
+                        <medium class="" id="detail">{{ object.priority }}</medium><br>
+                    </tr><br>
+                    <tr><label for="title" id='detailj' class="text-muted">Description: </label><br>
+                        <medium class="" id="detail">{{ object.desc }}</medium><br>
+                    </tr>
+                </table>
+            </div>
+          
+            <div>
+
+                <button class="button" id="doned">Done</button>
+                <button class="button" id="deleted">Delete</button>
+            </div>
+        </article>   
+
+    </div>
+    {% include 'planner/footer.html' %}
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+{% load static %}
+{{ STATIC_URL }}
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- include headers from header.html -->
+{% include 'planner/header.html' %}
+</head>
+
+<body>
+
+<!-- include the top navigation from topnav.html-->
+ {% include 'planner/topnav.html' %}
+  
+  <!-- left side navigation -->  
+  <div class="sidenav" id="leftnav" >
+    <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
+    <a class="active" href="{% url 'planner-dashboard' %}">Dashboard</a>
+    <a class='active' href="{%url 'planner-home'%}">Add Task</a>
+    <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
+    <a href="#">Contact</a>
+    
+  </div>
+  
+  <!-- create right navigation bar where tasks are displayed-->
+  <div id="rightnav" class="sidenav">
+    <div class="col-md-12">
+      <!-- iterate through tasks-->
+      {% for task in tasks %}
+        <!-- display task type as header-->
+        <article class="card" id="article">
+            <h6 class="card-header">
+                {{ task.type }}
+            </h6>
+            <div class="container" id="sideentry">
+                
+                <!-- display task name-->
+                <div><h4 class='grow'><a class="title" id="title2" href="{% url 'task-detail' task.id %}">{{ task.task }}</a></h4></div>
+                <!-- display priority name-->
+                <label for="title" class="text-muted" id='rightsidelabel'>Priority: </label>
+                <medium class="" id='datetext'>{{ task.priority }}</medium><br>
+                <!-- display date goal-->
+                <label for="title" class="text-muted" id='rightsidelabel'>Date Goal: </label>
+                <medium class="" id="datetext">{{ task.date }}</medium><br>
+            </div>
+            <div>
+                <!--display edit, done and delete buttons-->
+                <button class="button grow" id="edit"><a href="{% url 'edit' task.id %}">Edit</a></button>
+                <button class="button grow" id="done"><a href="{% url 'complete' task.id %}">Done</a></button>
+            
+                <button class='grow'  id="delete"><a href="{% url 'delete' task.id %}">Delete</a></button>
+                
+          
+            </div>
+        </article>
+        <br>
+   
+{% endfor %}
+</div>
+</div>
+
+  <!-- functions to open and close the left navigation-->
+  <div class="main" id='main'>
+        <i onclick="openNav()" class="fas fa-bars"></i>
+  
+    <div >
+    
+      <!-- display form -->
+      {% block content %}{% endblock %}
+   
+    </div>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+      
+        </div>
+
+      </div>
+    </main>
+  </div>
+  </div>
+
+  <!-- include the footers-->
+  {% include 'planner/footer.html' %}
+</body>
+
+</html>

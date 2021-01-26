@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- include headers from headers.html-->
+    {% include 'planner/header.html' %}
+</head>
+
+<body>
+    <!-- include top navigation from topnav.html-->
+    {% include 'planner/topnav.html' %}
+    <!-- Side navigation -->
+
+    <!--include left side navigation-->
+    <div class="sidenav" id="leftnav">
+        <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
+        <a href="{% url 'planner-dashboard' %}">Dashboard</a>
+        <a class='active' href="{%url 'planner-home'%}">Add Task</a>
+        <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div class="main" id='main'>
+        <!-- include leftnav open and close functions-->
+        
+        <i onclick="openNav()" class="fas fa-bars"></i>
+
+        <!-- create row to display 4 different sections-->
+        <div class="row">
+            <div class="col-sm-3">
+
+                <!-- section 1 with task priorty-->
+                <div class="card" id='carddash'>
+                    <div class="card-body with-margin" >
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-all-tasks' %}">Total Tasks</a></h5>
+
+                        <p class="card-text" align='right'> {{ total }} </p>
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-high-tasks' %}"> High Priority Tasks</a></h5>
+                        <p class="card-text" align='right'>{{ high }}
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-medium-tasks' %}"> Medium Priority Tasks</a>
+                        </h5>
+                        <p class="card-text" align='right'>{{ medium }}</p>
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-low-tasks' %}"> Low Priority Tasks</a></h5>
+                        <p class="card-text" align='right'>{{ low }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <p id="cardspace"></p>
+            <div class="col-sm-3 col-md-offset-0">
+                <div class="card" id='carddash'>
+                    <!-- section 2 with task due dates-->
+                    <div class="card-body" >
+                        <h5 class='grow'><a class='card-title'  href="{% url 'planner-year-tasks' %}"> Tasks Due This Year</a></h5>
+                        <p class="card-text " align='right'>{{ year }}
+                        </p>
+                        <h5 class='grow'><a class='card-title'  href="{% url 'planner-month-tasks' %}"> Tasks Due This Month</a></h5>
+                        <p class="card-text" align='right'>{{ month }}
+                        </p>
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-week-tasks' %}"> Tasks Due This Week</a></h5>
+                        <p class="card-text"align='right' >{{ week }}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                <div class="card" id='carddash'>
+                    <!-- section 3 with total hours scheduled-->
+                    <div class="card-body" >
+
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-month-tasks' %}"> Total Hours Scheduled</a></h5>
+                        <p class="card-text"align='right'>{{ totalhours }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="card" id='carddash'>
+                    <!-- section 1 with tasks-->
+                    <div class="card-body" >
+                        <h5 class="card-title grow"><a class='card-title' href="#"> Tasks Competed</a></h5>
+                        <p class="card-text"align='right'>{{ low }}
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+          
+           
+        </div>
+        <div class='card scroll' id='navigation'>
+
+            <!-- include content from alltasks.html-->
+            {% block content %}{% endblock %}
+
+        </div>
+    </div>
+    </main>
+
+    {% include 'planner/footer.html' %}
+</body>
+
+</html>

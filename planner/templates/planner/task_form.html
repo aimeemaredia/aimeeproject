@@ -1,0 +1,41 @@
+{% extends 'planner/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div id="inputform" class="container">
+  <br>
+  <h2 id='label-title'> Tasks</h2>
+  <form class="contact-form" method="post" action="/add_task/" id='forminput'>
+    {% csrf_token %}
+    <label for="task" id="label">Task Name:</label><br>
+    <input type="text" class="w-25" id="task" name="task"><br>
+    <table> 
+      <tr>
+        <td><label for="date" id='label'>Date:</label></td>
+        <td><label for="type" id='label'> Type:</label></td>
+      </tr>
+      <td id="space"><input type="date" id="date" name="date" value="l"></td>
+     
+        
+      <td><input type="text" id="type" name="type"></td>
+      <tr>
+        <td> <label for="hours_planned" id='label'>Hours Planned:</label><br></td>
+        <td> <label for="priority" id='label'>Priority:</label></td>
+      </tr>
+      <td id="space"><input type="number" id="hours_planned" name="hours_planned" value=""></td>
+      <td><select name="priority" id="priority">
+        <option id='abc' value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select></td>
+    </table>
+  
+    <label for="desc" id='label'>Description:</label><br>
+
+    <textarea name="desc" id="desc" cols="100" rows="5"></textarea><br><br>
+    <input type="submit" id="label" name="tsubmit" class='w-25' value="Add">
+
+
+  </form>
+  {% endblock content %}

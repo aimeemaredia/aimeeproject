@@ -1,0 +1,14 @@
+<!---------------------------------------------------------- calendar.html--------------------------------------------------------------->
+<!--adds to base.html-->
+{% extends 'cal/base.html' %}
+
+{% block content %}
+
+<!-- calendar buttons(prev and next month)-->
+<div class="clearfix">
+	<a class="btn btn-info left" id='btnleft' href="{% url 'cal:calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" id='btnright' href="{% url 'cal:calendar' %}?{{ next_month }}"> Next Month </a>
+</div>
+<!-- import calendar object and render-->
+{{ calendar }}
+{% endblock %} 

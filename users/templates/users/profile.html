@@ -1,0 +1,54 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'planner/header.html' %}
+</head>
+
+<body>
+    {% include 'planner/topnav.html' %}
+    <!-- Side navigation -->
+
+    <div class="sidenav" id="leftnav">
+        <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
+        <a href="{% url 'planner-dashboard' %}">Dashboard</a>
+        <a href="#">Add Task</a>
+        <a href="#">Productivity</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div class="main" id='main'>
+        
+        <i onclick="openNav()" class="fas fa-bars"></i>
+
+        <div class='content-section' id='profilepg'>
+            <div class="media">
+                <img class=' test rounded-circle account-img' src="{{ user.profile.image.url }}">
+                <div class="media-body">
+                    <h2 class='account-heading' align="right">{{ user.username }}</h2>
+                    <p class='text-secondary' align="right">{{ user.email }}</p>
+                </div>
+            </div>
+            <br><br>
+            <form method="POST" enctype="multipart/form-data" id='profilefields'>
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Profile Info</legend>
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Update</button>
+                </div>
+        
+            </form>
+        </div>
+    </div>
+ 
+
+    {% include 'planner/footer.html' %}
+</body>
+
+</html>
