@@ -139,7 +139,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 LOGIN_REDIRECT_URL = 'planner-home'
 LOGIN_URL = '/'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')

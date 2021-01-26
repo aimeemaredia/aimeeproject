@@ -1,0 +1,102 @@
+/*styling for the full calendar****************************************************************************************/
+.calendar {
+  margin-left: 160px;
+  margin-right: 100px;
+  position: relative;
+  top: -20px;
+  font-size: 13px;
+  background-color: rgb(246, 252, 255);
+  box-shadow: 0 0 10px;
+
+}
+
+/*styling for rows in the calendar****************************************************************************************/
+.calendar tr{
+  border: 1px solid black;
+}
+  
+/*styling for header in the calendar****************************************************************************************/
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 10px;
+}
+  
+/*styling for each cell in the calendar****************************************************************************************/
+.calendar td {
+  border: 1px solid black;
+  width: 170px;
+  height: 110px;
+  padding: 20px 0px 0px 5px;
+ 
+}
+  
+/*styling for month name in the calendar****************************************************************************************/
+.month {
+  font-size: 25px;
+}
+  
+/*styling for date name in the calendar****************************************************************************************/
+.date {
+  font-size: 16px;
+}
+  
+/*styling for list within date in the calendar****************************************************************************************/
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+  
+/*styling for date links in the calendar****************************************************************************************/
+a {
+  color: #17a2b8;
+}
+
+/*styling for rows in the calendar****************************************************************************************/
+.left {
+  float: left;
+}
+
+/*styling for rows in the calendar****************************************************************************************/
+.right {
+  float: right;
+}
+  
+/*styling for next and prev buttons in the calendar****************************************************************************************/
+#btnleft {
+  outline: none;
+  color: black;
+  background-color: rgb(101, 101, 233);
+  box-shadow: 0 0 0 0;
+  position:absolute;
+  bottom: 10px;
+  left:5px;
+  
+}
+
+#btnright {
+  outline: none;
+  color: black;
+  background-color:  rgb(101, 101, 233);
+  box-shadow: 0 0 0 0;
+  position:absolute;
+  bottom: 10px;
+  right:5px;
+  
+}
+  
+/*styling for rows in the calendar****************************************************************************************/
+.clearfix {
+  margin: 15px;
+}
+
+/* date text**********************************************************************************************************/
+.h6{
+  font-family: 'Roboto', sans-serif !important;
+  font-size: small;
+  color: black;
+}
+#calweek{
+  font-family: 'Roboto', sans-serif !important;
+}

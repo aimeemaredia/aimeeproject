@@ -1,0 +1,277 @@
+{% load static %}
+<!DOCTYPE html>
+<html> 
+<head> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'planner/main.css'%}">
+
+    {% if title %}
+        <title>Planner - {{ title }}</title>
+    {% else %}
+        <title>Planner</title>
+    {% endif %} 
+</head>
+<body>
+  
+    <div class="navbar">
+        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+        <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+    </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+      
+      <!-- Use any element to open the sidenav -->
+      <span onclick="openNav()">open</span>
+      
+      <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+      <div id="main">
+        ...
+      </div>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="/">Day Planner</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'planner-home' %}">Home</a>
+                <a class="nav-item nav-link" href="{% url 'planner-about' %}">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">Login</a>
+                <a class="nav-item nav-link" href="#">Register</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8">
+            {% block content %}{% endblock %}
+          </div>
+          <div class="col-md-4">
+            <div class="content-section">
+              <h3>Our Sidebar</h3>
+              <p class='text-muted'>You can put any information here you'd like.
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light">Latest Posts</li>
+                  <li class="list-group-item list-group-item-light">Announcements</li>
+                  <li class="list-group-item list-group-item-light">Calendars</li>
+                  <li class="list-group-item list-group-item-light">etc</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html> 
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="icon-bar">
+  <a class="active" href="#"><i class="fa fa-home"></i></a>
+  <a href="#"><i class="fa fa-search"></i></a>
+  <a href="#"><i class="fa fa-envelope"></i></a>
+  <a href="#"><i class="fa fa-globe"></i></a>
+  <a href="#"><i class="fa fa-trash"></i></a>
+</div>
+
+
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>One Day Calendar</title>
+    <!-- One day calendar view for scheduling and display events -->
+	<link rel="stylesheet" type="text/css" href="css/calendar-style.css"/>
+</head>
+<body>
+	<div id="cvHeaderContainer">
+		<div id="cvHeader"></div>
+        <div id="cvHeaderText">One Day Calendar<span id="cvHeaderSubText">Schedule another day!</span></div>
+	</div>
+
+	<div id="cvCalendarContainer">
+		<div id="cvCalendarContainerLeftColumn" class="calendarContainerColumn">
+			<div id="cvCalendarTimeContainer">
+
+			</div>
+		</div>
+		<div id="cvCalendarContainerRightColumn" class="calendarContainerColumn">
+			<div id="cvCalendarEventsContainer">
+
+			</div>
+		</div>
+	</div>
+
+	<script src="src/cv-calendar-scheduler.js"></script>
+	<script src="src/cv-calendar-time.js"></script>
+	<script src="src/cv-calendar-template.js"></script>
+
+	<script>
+
+    (function (calendarViewNS, maxEventsCount, maxEventEndTime) {
+
+        function scheduleAndDisplayEventsOfDay (randomEvents) {
+            if (calendarViewNS && calendarViewNS.scheduler && calendarViewNS.layoutBuilder && calendarViewNS.timesSet) {
+
+                // add times to DOM
+                calendarViewNS.layoutBuilder.updateTimesContainer(calendarViewNS.timesSet);
+
+                // output events
+                var scheduledEvents = calendarViewNS.scheduleEvents(randomEvents);
+
+                // add events to DOM
+                calendarViewNS.layoutBuilder.updateEventsContainer(scheduledEvents);
+
+                document.documentElement.className = document.documentElement.className.replace("no-js", "");
+            }
+        }
+
+        // input data for test calendar view
+        var events = [
+                {"id": 0, "start": 39, "end": 291},
+                {"id": 1, "start": 248, "end": 315},
+                {"id": 2, "start": 575, "end": 711},
+                {"id": 3, "start": 10, "end": 38},
+                {"id": 4, "start": 536, "end": 701},
+                {"id": 5, "start": 623, "end": 716},
+                {"id": 6, "start": 175, "end": 561},
+                {"id": 7, "start": 297, "end": 457},
+                {"id": 8, "start": 619, "end": 691}
+            ],
+            button = document.getElementById('cvHeaderSubText');
+
+        scheduleAndDisplayEventsOfDay(events);
+
+        function generateRandomEvents () {
+            var events = [],
+                    event,
+                    count = Math.round(Math.random() * maxEventsCount);
+            for (var i = 0; i < count; i++) {
+                event = {
+                    id: i,
+                    start: Math.floor(Math.random() * maxEventEndTime)
+                };
+                event.end = event.start + Math.floor(Math.random() * (maxEventEndTime - event.start));
+                events.push(event);
+            }
+            return events;
+        }
+
+        if (!button) {
+            return;
+        }
+        button.addEventListener('click', function () {
+            scheduleAndDisplayEventsOfDay(generateRandomEvents());
+        });
+
+    })(calendarView, 20, 720);
+
+	</script>
+</body>
+</html>
+
+
+
+
+<label for="task">Task Name:</label><br>
+    <input type="text" id="task" name="task"><br>
+    <table>
+      <tr>
+        <td><label for="date">Date:</label></td>
+        <td><label for="type"> Type:</label></td>
+      </tr>
+      <td id="space"><input type="date" id="date" name="date"></td>
+      <td><input type="text" id="type" name="type"></td>
+    </table>
+    <label for="hours_planned">Hours Planned:</label><br>
+    <input type="number" id="hours_planned" name="hours_planned"><br>
+    <label for="priority">Priority:</label><br>
+    <select name="priority" id="priority"></select><br>
+    <label for="desc">Description:</label><br>
+
+    <textarea name="desc" id="desc" cols="74" rows="5"></textarea><br>
+
+    <input type="submit" id="tsubmit" name="tsubmit" value="Task">
+<form class="contact-form" method="post" action="/add_task/">
+    {% csrf_token %}
+    
+  </form>
+
+
+
+
+
+
+
+  <!--<article class="card" id="article">
+  <h6 class="card-header">
+      {{ task.type }}
+  </h6>
+  <div class="container" id="sideentry">
+      
+      <div><a class="title" id="title1" href="{% url 'task-detail' task.id %}">{{ task.task }}</a></div>
+
+      <label for="title" class="text-muted">Priority: </label>
+      <medium class="" id='datetext'>{{ task.priority }}</medium><br>
+      <label for="title" class="text-muted">Date Goal: </label>
+      <medium class="" id="datetext">{{ task.date }}</medium><br>
+  </div>
+  <div>
+
+      <button class="button" id="edit">Edit</button>
+      <button class="button" id="done">Done</button>
+ 
+  </div>
+</article>
+<br>-->
+
+ class CalendarView(generic.ListView):
+    model = Task
+    template_name = 'cal/calendar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # use today's date for the calendar
+        d = get_date(self.request.GET.get('day', None))
+
+        # Instantiate our calendar class with today's year and date
+        cal = Calendar(d.year, d.month)
+
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        return context
+
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return date(year, month, day=1)
+    return datetime.today()
