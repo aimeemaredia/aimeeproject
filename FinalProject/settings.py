@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY")#'br#o6*-h8-x_xr0kpx3hrway^5r^gd!*v6m))c*g*_22@t_tjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get("DEBUG_VALUE") == "False")
+DEBUG = (os.environ.get("DEBUG_VALUE") == "True")
 
 ALLOWED_HOSTS = ['aimeeplannerproject.herokuapp.com','127.0.0.1']
 
