@@ -31,6 +31,8 @@ urlpatterns = [
     # url path to display current task detail 
     path('year-tasks/',views.yeartasks, name="planner-year-tasks"),
     # url path to display current task detail 
+    path('complete-tasks/',views.completetasks, name="planner-complete-tasks"),
+    # url path to display current task detail 
     path('task/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
     # url path to delete task
     path('delete/<task_id>',views.delete_task,name='delete'),

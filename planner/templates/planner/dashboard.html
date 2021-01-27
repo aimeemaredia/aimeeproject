@@ -70,7 +70,7 @@
                     <!-- section 3 with total hours scheduled-->
                     <div class="card-body" >
 
-                        <h5 class='grow'><a class='card-title' href="{% url 'planner-month-tasks' %}"> Total Hours Scheduled</a></h5>
+                        <h5 ><a class='card-title' > Total Hours Scheduled</a></h5>
                         <p class="card-text"align='right'>{{ totalhours }}
                         </p>
                     </div>
@@ -81,8 +81,8 @@
                 <div class="card" id='carddash'>
                     <!-- section 1 with tasks-->
                     <div class="card-body" >
-                        <h5 class="card-title grow"><a class='card-title' href="#"> Tasks Competed</a></h5>
-                        <p class="card-text"align='right'>{{ low }}
+                        <h5 class="card-title grow"><a class='card-title' href="{% url 'planner-complete-tasks' %}"> Tasks Competed</a></h5>
+                        <p class="card-text"align='right'>{{ complete }}
                         </p>
 
                     </div>

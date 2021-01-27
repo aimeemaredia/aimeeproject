@@ -71,15 +71,17 @@ def about (request):
 def dashboard (request): 
     my_date = datetime.date.today()
     this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()), 
-        'totalhours': str(Task.objects.filter(user_written = request.user).aggregate(Sum('hours_planned'))),
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'totalhours': totalhours,
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),   
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())    #filter from current user for tasks this year
        
     }
     print(''+str(Task.objects.all().count()))
@@ -132,7 +134,7 @@ def add_task(request):
     cal_update.save()
     context = {
     
-        'tasks': Task.objects.filter(user_written = request.user).all()
+        'tasks': Task.objects.filter(user_written = request.user).filter(complete=0).all()
     }
     obj = Task.objects.count()
     print(""+ str(obj)) 
@@ -180,10 +182,11 @@ def edittask(request):
     context = {
     
         'tasks': Task.objects.filter(id=task_id).all()
+
     }
     obj = Task.objects.count()
     print(""+ str(obj)) 
-    return render(request, 'planner/editform.html', context)
+    return redirect('planner-home')
 
 
 def delete_task(request, task_id = None):
@@ -210,80 +213,95 @@ def complete(request,item_id = None):
 def alltasks(request): 
  
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()), 
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).all()                                                      
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).all(),       
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                                               
     }
     return render(request, 'planner/alltasks.html', context)
 
 @login_required
 def hightasks(request): 
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()), 
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).filter(priority='high').all()                         #filter from current user for high priority tasks
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').all(),
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                         #filter from current user for high priority tasks
     }
     return render(request, 'planner/alltasks.html', context)
 
 @login_required
 def mediumtasks(request): 
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()), 
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).filter(priority='medium').all()                         #filter from current user for high priority tasks
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').all(),
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                         #filter from current user for high priority tasks
     }
     return render(request, 'planner/alltasks.html', context)
 
 @login_required
 def lowtasks(request): 
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()), 
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).filter(priority='low').all()                         #filter from current user for high priority tasks
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').all(),
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                         #filter from current user for high priority tasks
     }
     return render(request, 'planner/alltasks.html', context)
 
 @login_required
 def monthtasks(request): 
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()), 
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).all()                         #filter from current user for high priority tasks
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),       #filter from current user for tasks this year
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).all(),
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                         #filter from current user for high priority tasks
 
     }
     return render(request, 'planner/alltasks.html', context)
@@ -291,16 +309,19 @@ def monthtasks(request):
 @login_required
 def weektasks(request): 
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),  
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).filter(date_added_week = this_week).all()                         #filter from current user for high priority tasks
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),  
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()),       #filter from current user for tasks this year
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week = this_week).all(),
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                         #filter from current user for high priority tasks
 
     }
     return render(request, 'planner/alltasks.html', context)
@@ -308,17 +329,41 @@ def weektasks(request):
 @login_required
 def yeartasks(request): 
     my_date = datetime.date.today()
-    this_week = my_date.isocalendar()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
     this_year = "2021"
     context = {
-        'total' : str(Task.objects.filter(user_written = request.user).all().count()),                                  #filter from current user for total tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(priority='high').count()),                 #filter from current user for high priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(priority='medium').count()),             #filter from current user for medium priority tasks
-        'low' : str(Task.objects.filter(user_written = request.user).filter(priority='low').count()),                   #filter from current user for low priority tasks
-        'month' : str(Task.objects.filter(user_written = request.user).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
-        'year' : str(Task.objects.filter(user_written = request.user).filter(date_added_year=this_year).count()),  
-        'week' : str(Task.objects.filter(user_written = request.user).filter(date_added_week=this_week).count()),       #filter from current user for tasks this year
-        'items': Task.objects.filter(user_written = request.user).filter(date_added_year = this_year).all()                         #filter from current user for high priority tasks
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),  
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year = this_year).all(),        #filter from current user for tasks this year
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                         #filter from current user for high priority tasks
+
+    }
+    return render(request, 'planner/alltasks.html', context)
+
+@login_required
+def completetasks(request): 
+    my_date = datetime.date.today()
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    context = {
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                  #filter from current user for total tasks
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                 #filter from current user for high priority tasks
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),             #filter from current user for medium priority tasks
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),                   #filter from current user for low priority tasks
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),    #filter from current user for tasks this month
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),  
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()),  
+        'items': Task.objects.filter(user_written = request.user).filter(complete=1).all(), 
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())      #filter from current user for tasks this year
+                               #filter from current user for high priority tasks
 
     }
     return render(request, 'planner/alltasks.html', context)

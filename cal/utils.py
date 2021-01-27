@@ -35,7 +35,7 @@ class Calendar(HTMLCalendar):
 		user_id = get_request().user                                      #define user_id as current user using the custom middleware function: get_request
 
 		# define event varibale used in previous function as filtered object from current user and current month 
-		events = Event.objects.filter(username = user_id).filter(task_date__year=self.year, task_date__month=self.month)
+		events = Event.objects.filter(username = user_id).filter(completion = 0).filter(task_date__year=self.year, task_date__month=self.month)
 
 
 		cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'     #set bootstrap classes for calendar

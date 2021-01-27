@@ -23,7 +23,7 @@
 
         <i onclick="openNav()" class="fas fa-bars"></i>
 
-        <article class="card w-75" id="detaildiv">
+        <article class="card w-50" id="detaildiv">
             <h6 class="card-header" id='detailheader'>
                 {{ object.type }}
             </h6>
@@ -52,13 +52,14 @@
                 </table>
             </div>
           
-            <div>
+            
 
-                <button class="button" id="doned">Done</button>
-                <button class="button" id="deleted">Delete</button>
-            </div>
+                <button class="button grow" id="doned"> <a href="{% url 'complete' object.id %}">Done</a></button>
+                   
+                <button class="button grow" id="deleted"><a href="{% url 'delete' object.id %}">Delete</a></button>
+         
         </article>   
-
+<br>
     </div>
     {% include 'planner/footer.html' %}
 </body>

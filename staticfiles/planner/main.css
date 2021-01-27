@@ -290,7 +290,8 @@ input[type=button]{
   #detaildiv{
     position:relative;
     height: 600px;
-    left: 13%;  
+    left: 15%; 
+    width: 200px; 
   }
   #title1{
   font-family: 'Roboto', sans-serif !important;

@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY")#'br#o6*-h8-x_xr0kpx3hrway^5r^gd!*v6m))c*g*_22@t_tjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get("DEBUG_VALUE") == "True")
+DEBUG = True
 
 ALLOWED_HOSTS = ['aimeeplannerproject.herokuapp.com','127.0.0.1']
 
@@ -131,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -139,7 +139,6 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 LOGIN_REDIRECT_URL = 'planner-home'
 LOGIN_URL = '/'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')

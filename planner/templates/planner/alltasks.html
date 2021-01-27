@@ -28,7 +28,7 @@
         <td> <label for="priority" id="cellid" class="">Priority:</label></td>
         <td> <label for="priority" id="cellid" class="text-muted">{{ item.priority }}</label></td>
         <!-- button to complete task-->
-        <button class='grow' id="completebutton"><a href="{% url 'complete' item.id %}">Delete</a></button>
+        <button class='grow' id="completebutton"><a href="{% url 'complete' item.id %}">Done</a></button>
     </form>
     </tr>
 </table>

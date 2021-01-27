@@ -290,7 +290,8 @@ input[type=button]{
   #detaildiv{
     position:relative;
     height: 600px;
-    left: 13%;  
+    left: 25%;  
+    box-shadow: 0 0 10px;
   }
   #title1{
   font-family: 'Roboto', sans-serif !important;
@@ -309,6 +310,7 @@ input[type=button]{
   }
   #detail{
     padding: 10px;
+    float: right;
   }
   #detailt{
     line-height: 24px;
@@ -321,14 +323,17 @@ input[type=button]{
     left: 100px; 
     top: 200px;
     position: absolute;
-    left: 82%;
+    left: 74%;
     top: 525px;
   }
   #deleted {
     background-color: rgb(158, 223, 228);
     position: absolute;
-    left: 90%; 
+    left: 85%; 
     top: 525px; 
+  }
+  #doned a, #deleted a{
+    color: #000000;
   }
   #detaildesc{
     position: absolute;

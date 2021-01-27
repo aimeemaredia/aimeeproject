@@ -12,7 +12,7 @@
     
     {% csrf_token %}
     <label for="task" id="label">Task Name:</label><br>
-    <input type="text" class="w-25" id="task" name="task" value= {{task.task}}><br>
+    <input type="text" class="w-25" id="task" name="task" value= "{{task.task}}"><br>
     <input type="hidden" id="hidden" name="hidden" value="{{task.id}}">
     <table> 
       <tr>
@@ -38,9 +38,10 @@
 
     <textarea name="desc" id="desc" cols="100" rows="5" value= "">{{task.desc}}</textarea><br><br>
     <input type="submit"  id="label" name="tsubmit" class='w-25' value="Change">
-    <button id="label">Back</button>
+     </form>
+    <a id = "label" href="{% url 'planner-home' %}">Back</a>
 
 
-  </form>
+ 
   {% endfor %}
   {% endblock content %}
