@@ -1,3 +1,9 @@
+/* Aimee Maredia 
+   Mr. Moore
+   ICS4U 
+   Jan 29,2019
+   styles.css file for formatting and styling for the calendar */
+
 /*styling for the full calendar****************************************************************************************/
 .calendar {
   margin-left: 160px;
@@ -63,7 +69,7 @@ a {
   float: right;
 }
   
-/*styling for next and prev buttons in the calendar****************************************************************************************/
+/*styling for prev button in the calendar****************************************************************************************/
 #btnleft {
   outline: none;
   color: black;
@@ -75,6 +81,7 @@ a {
   
 }
 
+/*styling for next button in the calendar****************************************************************************************/
 #btnright {
   outline: none;
   color: black;
@@ -91,12 +98,14 @@ a {
   margin: 15px;
 }
 
-/* date text**********************************************************************************************************/
+/* styling for the date text**********************************************************************************************************/
 .h6{
   font-family: 'Roboto', sans-serif !important;
   font-size: small;
   color: black;
 }
+
+/*styling for calendar week rows****************************************************************************************/
 #calweek{
   font-family: 'Roboto', sans-serif !important;
 }

@@ -1,8 +1,15 @@
-"""FinalProject URL Configuration
-"""
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    urls.py file for routing all https requests and paths 
+
 #FinalProject URL Configuration
 from FinalProject.settings import LOGIN_REDIRECT_URL
 from django.conf.urls import url
+
+
+# imports 
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -10,6 +17,7 @@ from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect 
 from django.urls import path, include
 from users import views as user_views
+
 
 urlpatterns = [
     #url path to admininistration backpage 
@@ -28,5 +36,6 @@ urlpatterns = [
     path('', include('cal.urls'))
     
 ]
+# set route for the media files 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

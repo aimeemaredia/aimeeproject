@@ -1,3 +1,9 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    wsgi.py file settings 
+
 """
 WSGI config for FinalProject project.
 

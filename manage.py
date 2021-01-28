@@ -1,4 +1,11 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    manage.py file which executes the entire program 
+
 #!/usr/bin/env python
+
 """Django's command-line utility for administrative tasks."""
 import os
 import sys

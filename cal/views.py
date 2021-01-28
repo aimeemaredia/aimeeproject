@@ -1,3 +1,9 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    views.py file for creating a Calendar view using the calendar class to display the calendar and headers   
+
 #imports
 from datetime import datetime, timedelta, date
 from django.shortcuts import render

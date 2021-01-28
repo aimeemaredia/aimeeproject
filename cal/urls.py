@@ -1,3 +1,9 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    urls.py file for routing url routes in the calendar app 
+
 #imports 
 from django.conf.urls import url
 from . import views
@@ -8,6 +14,7 @@ from planner.views import TaskDetailView
 app_name = 'cal'
 
 # url mapping patterns 
-urlpatterns = [
-    url(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),       #calendar url will return calendar page 
+urlpatterns = [ 
+    #calendar url will return calendar page 
+    url(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),      
 ]

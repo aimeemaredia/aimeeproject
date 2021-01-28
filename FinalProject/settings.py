@@ -1,10 +1,11 @@
-"""
-For more information on this file, see
-https://docs.djangoproject.com/en/3.1/topics/settings/
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    settings.py file for all application settings such as app registration, middleware, database connections
+#    debugging variables and setting storage variables  
 
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/3.1/ref/settings/
-"""
+#imports 
 import os
 from pathlib import Path
 import django_heroku
@@ -13,26 +14,25 @@ import django_heroku
 # define base subdirectory 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")#'br#o6*-h8-x_xr0kpx3hrway^5r^gd!*v6m))c*g*_22@t_tjv'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#the allowed hosts are the heroku web server and my localhost server 
 ALLOWED_HOSTS = ['aimeeplannerproject.herokuapp.com','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'cal.apps.CalConfig',
-    'jquery',
-    'users.apps.UsersConfig',
-    'planner.apps.PlannerConfig',
-    'crispy_forms',
+    'cal.apps.CalConfig',          # cal module
+    'jquery',                      # jquery app
+    'users.apps.UsersConfig',      # users module
+    'planner.apps.PlannerConfig',  # planner module
+    'crispy_forms',                # crispy form rendering 
+    #default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,20 +42,23 @@ INSTALLED_APPS = [
     'storages',
 ]
 
+# middleware registration 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'cal.middleware.RequestMiddleware',
+    'cal.middleware.RequestMiddleware',                        #my custom middleware file 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
 
+# root url path 
 ROOT_URLCONF = 'FinalProject.urls'
 
+# local template configuration 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -79,6 +82,7 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# local template configuration 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -131,23 +135,31 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#define static url
 STATIC_URL = '/static/'
-
+#define media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#define media url 
 MEDIA_URL = '/media/'
-
+#define bootstrap for crispy template 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#change the default storage 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#default redirect page 
 LOGIN_REDIRECT_URL = 'planner-home'
+#default login url 
 LOGIN_URL = '/'
+#access key environment variable for amazon s3 data storage 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+#secret access key environment variable for amazon s3 data storage 
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+#amazon s3 bucket name 
 AWS_STORAGE_BUCKET_NAME = 'compsci-planner-project'
+#amazon s3 region 
 AWS_S3_REGION_NAME = 'us-east-2' 
-
-
+#set rewrite to false (same name)
 AWS_S3_FILE_OVERWRITE = False
+#set default acl to none
 AWS_DEFAULT_ACL = None
-
+#set the heroku setting as the local settings 
 django_heroku.settings(locals())

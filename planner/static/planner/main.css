@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400);
 @import url(https://fonts.googleapis.com/css?family=Roboto:200);
 body {
-    background: #e1f8ff;
+    background: #a8dadc;
     color: #333333;
     margin-top: 0rem;
     overflow-x: hidden;
@@ -27,7 +27,7 @@ body {
     z-index: 2; /* Stay on top */
     top: 5; /* Stay at the top */
     right: 0;
-    background-color: #161b4a; /* Black */
+    background-color: #457b9d; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     max-height: calc(100vh - 3rem);
@@ -56,7 +56,7 @@ body {
     z-index: 1; /* Stay on top */
     top: 5; /* Stay at the top */
     left: 0;
-    background-color: #65a0b3; /* Black */
+    background-color: #f1faee; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     transition: 0.5s;
@@ -75,7 +75,7 @@ body {
     color: #a83939;
   }
   .topnav {
-    background-color: #161b4a;
+    background-color: #1d3557;
     overflow: hidden;
     z-index: -1;
   }
@@ -289,7 +289,7 @@ input[type=button]{
 /*********************************************************detail page          */ 
   #detaildiv{
     position:relative;
-    height: 600px;
+    height: 620px;
     left: 25%;  
     box-shadow: 0 0 10px;
   }

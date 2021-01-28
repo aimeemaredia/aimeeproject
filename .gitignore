@@ -1,3 +1,8 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    .gitignore file ignore certain files when they are saved to github 
 # Mac
 .DS_Store
 

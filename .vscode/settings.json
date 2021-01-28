@@ -1,3 +1,4 @@
+//Settings.json____ path to locate the VS code project 
 {
     "python.pythonPath": "C:\\Users\\aimee\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
 }

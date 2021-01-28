@@ -1,3 +1,9 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    forms.py file settings 
+
 #imports 
 from users.models import Profile
 from django import forms 
@@ -18,4 +24,5 @@ class TaskForm(forms.ModelForm):
 
    class Meta:                                                   #meta class 
        model = Task                                              #model used is Task model
-       fields = ['complete','task', 'type', 'date','desc','hours_planned','hours_worked','priority']  # necessary fields 
+       fields = ['complete','task', 'type', 'date','desc',
+                 'hours_planned','hours_worked','priority']      #necessary fields 

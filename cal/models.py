@@ -1,3 +1,10 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    middleware.py file for creating custom middleware for request and response objects  
+
+# imports 
 from django.db import models
 import datetime
 from django.contrib.auth.models import User 

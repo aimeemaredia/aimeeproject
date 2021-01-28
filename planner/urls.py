@@ -1,3 +1,9 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    urls.py file for all url routing within the planner module
+
 #imports 
 from django.urls import path
 from . import views 
@@ -42,7 +48,9 @@ urlpatterns = [
     path('complete/<int:item_id>',views.complete,name='complete'),
     # url path to add task page
     url(r'^add_task/$', views.add_task, name="add_task"),
+    # url path to update task
     path('update_task/', views.edittask, name="update_task"),
+    # url path to edit task 
     url(r'^edit_task/(?P<task_id>\D+)/$', views.edittask, name='edit_task')
     
 ]

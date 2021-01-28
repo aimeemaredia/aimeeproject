@@ -1,3 +1,9 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    models.py file for the Task database model
+
 #imports
 from django.db import models
 from django.db.models.enums import TextChoices

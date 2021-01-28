@@ -1,23 +1,22 @@
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    models.py file to create Profile database model 
+
+#imports 
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 
+#Create the model class for profile 
 class Profile(models.Model):
+    #create user field which will be the current user 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #create image field for profile image 
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     
+    #return the profile username as a string 
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-
-    #     img = Image.open(self.image.path)
-
-    #     if img.height > 300 or img.width > 300:
-    #         output_size = (300, 300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
-
-
-# Create your models here.

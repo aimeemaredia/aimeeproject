@@ -1,4 +1,9 @@
-#_middleware.py_
+#    Aimee Maredia 
+#    Mr. Moore
+#    ICS4U 
+#    Jan 29,2019
+#    middleware.py file for creating custom middleware for request and response objects  
+
 #import threading 
 from threading import current_thread
 
