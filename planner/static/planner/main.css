@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400);
 @import url(https://fonts.googleapis.com/css?family=Roboto:200);
 body {
-    background: #a8dadc;
+    background: #edf6f9;
     color: #333333;
     margin-top: 0rem;
     overflow-x: hidden;
@@ -27,7 +27,7 @@ body {
     z-index: 2; /* Stay on top */
     top: 5; /* Stay at the top */
     right: 0;
-    background-color: #457b9d; /* Black */
+    background-color: #83c5be; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     max-height: calc(100vh - 3rem);
@@ -56,7 +56,7 @@ body {
     z-index: 1; /* Stay on top */
     top: 5; /* Stay at the top */
     left: 0;
-    background-color: #f1faee; /* Black */
+    background-color: #ffddd2; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     transition: 0.5s;
@@ -75,7 +75,7 @@ body {
     color: #a83939;
   }
   .topnav {
-    background-color: #1d3557;
+    background-color: #006d77;
     overflow: hidden;
     z-index: -1;
   }
