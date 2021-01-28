@@ -10,23 +10,23 @@
     <table>  <!-- create table -->
     <tr>     <!-- create row-->
         <!--display task-->
-        <td> <label for="task" id="cellidL" class="">Task:</label></td>
-        <td> <label for="task" id="cellidt" class="text-muted">{{ item.task }}</label></td>
+        <td> <label for="task" id="cellid1" class="">Task:</label></td>
+        <td> <label for="task" id="cellid2" class="text-muted">{{ item.task }}</label></td>
         <!--display date-->
-        <td> <label for="due_date" id="cellidd" class="">Due Date:</label></td>
-        <td> <label for="due_date" id="cellidda" class="text-muted">{{ item.date }}</label></td>
+        <td> <label for="due_date" id="cellid3" class="">Due Date:</label></td>
+        <td> <label for="due_date" id="cellid4" class="text-muted">{{ item.date }}</label></td>
         <!--display date added-->
-        <td> <label for="date_added" id="cellid" class="">Date Added:</label></td>
-        <td> <label for="date_added" id="cellid" class="text-muted">{{ item.date_added }}</label></td>
+        <td> <label for="date_added" id="cellid5" class="">Date Added:</label></td>
+        <td> <label for="date_added" id="cellid6" class="text-muted">{{ item.date_added }}</label></td>
         <!--display hours planned-->
-        <td> <label for="hours_planned" id="cellid" class="">Hours Planned:</label></td>
-        <td> <label for="hours_planned" id="cellid2" class="text-muted">{{ item.hours_planned }}</label></td>
+        <td> <label for="hours_planned" id="cellid7" class="">Hours Planned:</label></td>
+        <td> <label for="hours_planned" id="cellid8" class="text-muted">{{ item.hours_planned }}</label></td>
         <!--display type-->
-        <td> <label for="type" id="cellid1" class="">Type:</label></td>
-        <td> <label for="type"  id="cellid1"class="text-muted">{{ item.type }}</label></td>
+        <td> <label for="type" id="cellid9" class="">Type:</label></td>
+        <td> <label for="type"  id="cellid10"class="text-muted">{{ item.type }}</label></td>
         <!--display priority-->
-        <td> <label for="priority" id="cellid" class="">Priority:</label></td>
-        <td> <label for="priority" id="cellid" class="text-muted">{{ item.priority }}</label></td>
+        <td> <label for="priority" id="cellid11" class="">Priority:</label></td>
+        <td> <label for="priority" id="cellid12" class="text-muted">{{ item.priority }}</label></td>
         <!-- button to complete task-->
         <button class='grow' id="completebutton"><a href="{% url 'complete' item.id %}">Done</a></button>
     </form>

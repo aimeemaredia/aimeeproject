@@ -11,14 +11,20 @@
   position: relative;
   top: -20px;
   font-size: 13px;
-  background-color: rgb(246, 252, 255);
-  box-shadow: 0 0 10px;
+  border: none;
+  background-color: #f5f1e5;
+  border-radius: 2px;
+  box-shadow: 2px 2px 2px 0px;
 
 }
 
 /*styling for rows in the calendar****************************************************************************************/
 .calendar tr{
   border: 1px solid black;
+  border-radius: 16px;
+  font-family: 'Roboto Condensed';
+  font-weight: 200;
+  font-style: normal;
 }
   
 /*styling for header in the calendar****************************************************************************************/
@@ -27,6 +33,7 @@
   text-align: center;
   font-size: 18px;
   line-height: 10px;
+  border-radius: 16px;
 }
   
 /*styling for each cell in the calendar****************************************************************************************/
@@ -35,17 +42,21 @@
   width: 170px;
   height: 110px;
   padding: 20px 0px 0px 5px;
- 
+  border-radius: 16px;
 }
   
 /*styling for month name in the calendar****************************************************************************************/
 .month {
   font-size: 25px;
+  font-family: 'Roboto Condensed';
+  font-weight: 300;
 }
   
 /*styling for date name in the calendar****************************************************************************************/
 .date {
   font-size: 16px;
+  font-family: 'Roboto';
+  font-weight: 300;
 }
   
 /*styling for list within date in the calendar****************************************************************************************/
@@ -56,7 +67,7 @@ ul {
   
 /*styling for date links in the calendar****************************************************************************************/
 a {
-  color: #17a2b8;
+  color: #060b0c;
 }
 
 /*styling for rows in the calendar****************************************************************************************/
@@ -72,9 +83,10 @@ a {
 /*styling for prev button in the calendar****************************************************************************************/
 #btnleft {
   outline: none;
-  color: black;
-  background-color: rgb(101, 101, 233);
-  box-shadow: 0 0 0 0;
+  color: #e7dfc6;
+  border-color: #e7dfc6;
+  background-color:  #2d3142;
+  box-shadow: 1px 1px 1px 0px;
   position:absolute;
   bottom: 10px;
   left:5px;
@@ -84,9 +96,10 @@ a {
 /*styling for next button in the calendar****************************************************************************************/
 #btnright {
   outline: none;
-  color: black;
-  background-color:  rgb(101, 101, 233);
-  box-shadow: 0 0 0 0;
+  color: #e7dfc6;
+  background-color:  #2d3142;
+  border-color: #e7dfc6;
+  box-shadow: 2px 2px 2px 0px;
   position:absolute;
   bottom: 10px;
   right:5px;
@@ -106,6 +119,11 @@ a {
 }
 
 /*styling for calendar week rows****************************************************************************************/
-#calweek{
-  font-family: 'Roboto', sans-serif !important;
+#calLink{
+  font-family: 'Roboto Condensed';
+  font-weight: 300;
+  color: #2d3142;
+}
+#calLink:hover{
+   color: #2274a5;
 }

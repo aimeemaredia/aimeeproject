@@ -23,4 +23,4 @@ class Event(models.Model):
     @property
     def get_html_url(self):                               #function to return link
         url = reverse('task-detail', args=(self.id,))     #redirct user to task detail view, corresponding to task id 
-        return f'<a href="{url}"> {self.title}</a>'       #return the link on form of html code with title 
+        return f'<a id ="calLink" href="{url}"> {self.title}</a>'       #return the link on form of html code with title 

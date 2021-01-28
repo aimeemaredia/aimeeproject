@@ -37,11 +37,11 @@
     <label for="desc" id='label'>Description:</label><br>
 
     <textarea name="desc" id="desc" cols="100" rows="5" value= "">{{task.desc}}</textarea><br><br>
-    <input type="submit"  id="label" name="tsubmit" class='w-25' value="Change">
+    <input type="submit" class ="grow" id="label" name="tsubmit" class='w-25' value="Change">
      </form>
-    <a id = "label" href="{% url 'planner-home' %}">Back</a>
+    <a class ="button" id ="backedit"  href="{% url 'planner-home' %}">Back</a>
 
-
+  <br>
  
   {% endfor %}
   {% endblock content %}

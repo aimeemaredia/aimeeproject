@@ -45,7 +45,7 @@ class Calendar(HTMLCalendar):
 		for d, weekday in theweek:                                        
 			week += self.formatday(d, events)         
 	    #return the row html code                   
-		return f"<tr><label id='calweek'> {week}</label> </tr>"
+		return f"<tr><label class='date'>{week}</label> </tr>"
 
     #function to format each month at a time
 	def formatmonth(self, withyear=True):  
@@ -56,7 +56,7 @@ class Calendar(HTMLCalendar):
 		events = Event.objects.filter(username = user_id).filter(completion = 0).filter(task_date__year=self.year, task_date__month=self.month)
 
 
-		cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'     #set bootstrap classes for calendar
+		cal = f'<table border="1" cellpadding="0" cellspacing="0" class="calendar">\n'     #set bootstrap classes for calendar
 		cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'       #call function to format names 
 		cal += f'{self.formatweekheader()}\n'                                              #format weeks 
 		for week in self.monthdays2calendar(self.year, self.month):                        #for loop to render the calendar

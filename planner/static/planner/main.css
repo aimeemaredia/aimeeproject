@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400);
 @import url(https://fonts.googleapis.com/css?family=Roboto:200);
+/* body format for whole website */
 body {
     background: #e9f1f7;
     color: #333333;
@@ -7,6 +8,12 @@ body {
     overflow-x: hidden;
   }
   /*********************************************************__task page__***********************************************************/ 
+  /* main div*/
+  .main {
+    transition: margin-left .5s; 
+    padding: 0px 10px;
+  }
+  /* main body */
   #main{
     margin-left: 0px;
     width: 100%;
@@ -15,20 +22,24 @@ body {
     margin-left: 0;
     overflow-x: hidden;  
   }
+  /* bottom logo */
   #logo{
     position: absolute;
     top: 570px;
     height: 15%;
     width: 15%;
   }
+  /* top logo */
   #navlogo{
-    width: 3.4%;
+    width: 53px;
   }
+  /* input form */
   #inputform{
     margin-left: 16%;
     margin-top: 0px;
     line-height: 35px;
   }
+  /* right sidebar */ 
   #rightnav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 27%; /* Set the width of the sidebar */
@@ -41,23 +52,9 @@ body {
     padding-top: 20px;
     max-height: calc(100vh - 3rem);
     overflow-y: scroll;
+    box-shadow: 0px 0px 8px;
   }
-  #datetext{
-    font-family: 'Roboto-Condensed', sans-serif !important;
-    float:right;
-    font-size: large;
-  }
-  #rightsidelabel{
-    font-family: 'Roboto-Condensed', sans-serif !important;
-    font-size: large;
-  }
-  #label{
-   font-family: 'Roboto', sans-serif !important;
-  }
-  #label-title{
-   font-family: 'Roboto-Condensed', sans-serif !important;
-  }
-  /* The sidebar menu */
+  /* left sidebar  */
   #leftnav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 0; /* Set the width of the sidebar */
@@ -69,25 +66,32 @@ body {
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     transition: 0.5s;
-  }
+  } 
+  /* leftnav active fields*/
   #leftnav a{
-    color: white;
+    color: black;
     padding: 8px 8px 8px 32px;
-    text-decoration: none; 
     font-size: 25px;
     display:block;
-    transition: 0.3s;
+    transition: 0.2s;
   }
-/* The navigation menu links */
-/* When you mouse over the navigation links, change their color */
+  /*sidenav close 'x'*/
+  #btnclose{
+    position:relative;
+    left:14rem;
+    top: -1.25rem;
+  }
+  /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
     color: #a83939;
   }
+  /* top navigation */
   .topnav {
     background-color: #2d3142;
     overflow: hidden;
-    z-index: -1;
+    z-index: -1;  
   }
+  /* topnav links */
   .topnav a {
     float: left;
     color: #e9f1f7;
@@ -97,95 +101,159 @@ body {
   font-size: 17px;
 }
 /* Change the color of links on hover */
-.topnav a:hover {
+.topnav a:hover, .topnav a.active{
   background-color: #e9f1f7;
   color: black;
 }
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #e9f1f7;
-  color: black;
+ /* priority and task article field */
+#datetext{
+  font-family: 'Roboto-Condensed', sans-serif !important;
+  float:right;
+  font-size: large;
 }
+/* priority and date label */ 
+#rightsidelabel{
+  font-family: 'Roboto-Condensed', sans-serif !important;
+  font-size: large;
+}
+/* label for task form fields*/
+#label, #label-title{
+  font-family: 'Roboto', sans-serif !important;
+}
+/* rigth side bar article box */  
 #article{
-  border-radius: 16px;
-  border-style: inset;
-  border-color: rgb(201, 201, 201);
-  border-width: 2px;
+  border-radius: 16px;  
   line-height: 35px;
   background-color: #ffffff;
+  box-shadow: 4px 4px 5px;
 }
-
-input[type=text]{
+/* text and password inputs*/
+input[type=text], input[type=password]{
   padding: 6px; 
   border-radius: 16px;
-  border-style:inset;
+  border: none;
+  box-shadow: 1px 1px 2px;
 }
-input[type=password]{
-  padding: 6px; 
-  border-radius: 16px;
-  border-style:inset;
-}
+/* submit input*/
 input[type=submit]{
-  background-color: #3498DB;
-  color: white;
-  border-radius: 16px;
-  position:relative;
-  right: 55px;
-}
-  input[type=submit]{
   padding: 5px;
-  margin-left: 355px;
-  width: 200px;
+  margin-left: 300px;
+  width: 275px;
+  border-radius: 16px;
   background-color: #e7dfc6;
   color: black;
+  border: none;
+  box-shadow: 1px 1px 2px;
 }
+/*edit form back*/
+#backedit{
+  padding: 5px 140px 5px 115px;
+  width: 20px;
+  border-radius: 16px;
+  background-color: #e7dfc6;
+  color: black;
+  border: none;
+  text-align: center;
+  box-shadow: 1px 1px 2px;
+  position: absolute;
+  left: 270px;
+  top: 625px;
+}
+/* date input */
+#date{
+  padding: 5px;
+  width: 143%;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 1px 1px 2px;
+}
+/* hours planned input */
+#hours_planned{
+  padding: 6px;
+  width: 143%;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 1px 1px 2px;
+}
+/*priority input */
+#priority{
+  padding: 6px;
+  width: 143%;
+  border-radius: 16px;
+  height: 43px;
+  border: none;
+  box-shadow: 1px 1px 2px;
+  border-width: 2px;
+}
+/*type input*/
+#type{
+  width: 143%;
+}
+/*description input*/
 #desc{
   width: 573px;
   height:100px;
   border-radius: 16px;
   border-style:solid;
   border-width: 2px;
-}
-input[type=button]{
-  margin-right: 1em;
-}
-#edit, #done, #delete, #doned, #deleted{
   border: none;
+  box-shadow: 1px 1px 2px;
+}
+/* edit, done and delete buttons on all pages*/
+#edit, #done, #delete, #doned, #deleted{
   color: black;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  border: none;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 16px;
   position: relative;
-}
-#edit {
+  box-shadow: 1px 1px 2px;
   background-color: #e7dfc6;
+  border-style: none;
+}
+/* edit button */
+#edit { 
   left: 97px; 
   top: 0px;
 }
+/* done button */
 #done {
-  background-color: #e7dfc6;
   left: 100px; 
   top: 0px;
 }
+/* delete button */
 #delete {
-  background-color: #e7dfc6;
   left: 100px; 
-  top: 0px;
+  top: 0px;  
 }
-#edit a, #done a, #delete a{
-  color: #000000;
-  font-family: 'Roboto', sans-serif !important;
-  font-size: medium;
-}
+/*back label*/
 #cancellabel{
   position:relative;
   right: 357px;
   top: -48px;
-}
+} 
+/* task name */
+  #articletask{
+    font-family: 'Roboto', sans-serif !important;
+    position: relative;
+    top: 5px;
+    font-size: xx-large;
+    line-height: 70px;
+    margin-left: 0px;
+    transition: all .1s ease-in-out; 
+    }
+  /* task link */
+  #articletask,a:hover{
+    color: black;
+    text-decoration: none;
+    transform: scale(1.01); 
+    text-decoration: none;
+    color: #333333;
+  }
 /***********************************************************login page     */     
   #login-main{
     position: absolute;
@@ -195,116 +263,137 @@ input[type=button]{
     box-shadow: 0 0 10px;
   }
   /************************************************************dashboard page      */
-  #cellid{
-    width: 114px;
-    position: relative;
-    top: 10px;
-  }
-  #cellidd{
-    width: 90px;
-    position: relative;
-    top: 10px;
-  }
-   #cellidda{
-    width: 123px;
-    position: relative;
+  /*///////////////////////////////////////////////////// alltasks cell formatting /////////////////////////////////////////////////*/ 
+  #cellid1, #cellid2, #cellid3, #cellid4, #cellid5, #cellid6, #cellid7, #cellid8, #cellid9, #cellid10, #cellid11, #cellid12{
+    position:relative;
     top: 10px;
   }
   #cellid1{
-    width: 70px;
-    position: relative;
-    top: 10px;
-  }
-  #cellidt{
-    width: 120px;
-    position: relative;
-    top: 10px;
-    
-  }
-  #cellidL{
-    width: 70px;
-    position: relative;
-    top: 10px;
     margin-left: 20px;
+    width: 60px;  
   }
   #cellid2{
-    width: 100px;
-    position: relative;
-    top: 10px;
+    width: 180px;  
   }
+   #cellid3{
+    width: 100px;
+  }
+  #cellid4{
+    width: 150px;
+  }
+  #cellid5{
+    width: 115px;
+  }
+  #cellid6{
+    width: 150px;
+  }
+  #cellid7{
+    width: 150px;
+  }
+  #cellid8{
+    width: 50px;
+  }
+  #cellid9{
+    width: 70px;
+  }
+  #cellid10{
+    width: 95px;
+  }
+  #cellid11{
+    width: 95px;
+  }
+  #cellid12{
+    width: 95px;
+  }
+  /*///////////////////////////////////////////////////////////////////////////*/
+  /* article spacing*/
+  #page{
+    margin-top: -12px;
+  }
+  /* alltasks scroll menu */ 
   #navigation{
-    background-color:#d8f5fd;
+    background-color:#e9f1f7;
     border-radius: 16px;
     overflow-y: scroll;
+    height: 320px;
+    border: none;
+    border-radius: 16px;
   }
+  /* all task articles*/
   #alltasksart{
     background-color: white;
-    border-style: solid;
+    border: none;
     border-radius: 16px;
-    border-width: 2px 2px 2px 2px;
-    border-color: #f0f0f0;
+    box-shadow: 1px 1px 1px 0px;
   }
+  /*dashboard cards*/ 
   #carddash{
+  background-color: #ffffff;
   border-radius: 16px;
-  line-height: 22px;
+  line-height: 20px;
   padding: 2px 15px;
+  border: "none";
+  box-shadow: 2px 2px 2px 0px;
+
   }
+  /* dashboard card link formats */ 
   .card-title, .card-title:visited,.card-title:active{
     text-decoration: none;
     font-family:'Roboto',sans-serif;
     color: #0e052e;
   }
+  /* dashboard number format */ 
   .card-text{
     font-family: 'Roboto', sans-serif;
-    font-size: large;
+    font-size: larger;
     color: #000000;
+    position:relative;
+    top: -5px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 90%;
+    margin-top: -10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #e7dfc6;
+    box-shadow: 2px 2px 2px 0px;
   }
+  /* dashboard link hover */ 
   .card-title:hover{
     text-decoration: none;
     font-family: 'Roboto-Condensed', sans-serif !important;
-    color: #36afe7;   
+    color: #2274a5;   
   }
+  /* all tasks complete button */ 
   #completebutton{
-    background-color: rgb(158, 223, 228);
+    background-color: #e7dfc6;
     border: 0px inset black;
     color: black;
     padding: 10px 20px;
     text-align: center;
     text-decoration:none;
-    /*display: inline-block;*/
-    margin: 4px 2px;
+    box-shadow: 1px 1px 1px 0px;
+    margin: 4px 6px;
     cursor: pointer;
     border-radius: 16px;
     position: relative;
     float: right;
     top: 0px;
   }
+  /* complete button link color*/
   #completebutton a{
     color:#000000;
   }
-  #title2{
-    font-family: 'Roboto', sans-serif !important;
-    position: relative;
-    top: 5px;
-    font-size: xx-large;
-    line-height: 70px;
-    margin-left: 0px;
-    transition: all .1s ease-in-out; 
-    }
-  #title2,a:hover{
-    color: black;
-    text-decoration: none;
-    transform: scale(1.01); 
-    text-decoration: none;
-    color: #333333;
-  }
 /*********************************************************detail page          */ 
+/*detail page box*/
   #detaildiv{
     position:relative;
     height: 620px;
     left: 25%;  
-    box-shadow: 0 0 10px;
+    box-shadow: 2px 2px 2px 0px;
+    border-radius: 16px;
   }
+  /*detail title*/
   #title1{
   font-family: 'Roboto', sans-serif !important;
   position: relative;
@@ -312,41 +401,52 @@ input[type=button]{
   font-size: xx-large;
   line-height: 70px;
   margin-left: 25px;
+  color: #2d3142;
   }
-  #detail, #detailt, #detailj{
+  /* detail header */ 
+  #detailheader{
+    font-size: large;
+    font-family: 'Roboto';
+  }
+  /*detail labels*/
+  #detail, #detail1, #detail3{
     margin-right: 25px;
     position: relative;
     font-size: x-large;
     font-family: 'Roboto-Condensed', sans-serif !important;
     margin-left: 25px;
   }
+  /*individual detail fields*/ 
   #detail{
     padding: 10px;
     float: right;
   }
-  #detailt{
+  #detail1{
     line-height: 24px;
   }
-  #detailj{
+  #detail3{
     line-height: 24px;
   }
+  /*done and delete buttons */
   #doned {
-    background-color: rgb(175, 235, 250);
+    background-color: #e7dfc6;
     left: 100px; 
     top: 200px;
     position: absolute;
-    left: 74%;
+    left: 72%;
     top: 525px;
   }
   #deleted {
-    background-color: rgb(158, 223, 228);
+    background-color:  #e7dfc6;
     position: absolute;
     left: 85%; 
     top: 525px; 
   }
+  /*links*/
   #doned a, #deleted a{
     color: #000000;
   }
+  /* detail description */
   #detaildesc{
     position: absolute;
     font-family: 'Roboto', sans-serif;
@@ -354,14 +454,10 @@ input[type=button]{
     left: 45px;
     top: 425px;
   }
-  #btnclose{
-    position:relative;
-    left:14rem;
-    top: -1.25rem;
-  }
   ul {
     margin: 0;
   }
+  /*content section class*/
   .content-section {
     background: #ffffff;
     padding: 10px 20px;
@@ -370,36 +466,30 @@ input[type=button]{
     margin-bottom: 20px;
     overflow-y: hidden;
   } 
-/* Style page content */
-.main {
-  transition: margin-left .5s; /* Same as the width of the sidebar */
-  padding: 0px 10px;
-}
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-/* Add a black background color to the top navigation */
+/*register page*/
 #registerpg{
   width:75%;
-  line-height: 15px;
+  line-height: 22px;
   position:relative;
   left: 120px;
   top: 50px;
   box-shadow: 0 0 10px;
 }
+/*scroll class format*/
 .scroll{
   max-height: 50%;
   overflow-y: auto;
 }
-
+/* with margin format */
 .with-margin{
   margin-bottom: 3px;
 }
-#page{
-  margin-top: -15px;
-}
+
 .grow { 
   transition: all .1s ease-in-out; 
   }
@@ -409,8 +499,9 @@ input[type=button]{
   color: #333333;
   }
   #profilepg{
+    border-radius: 16px;
     width:50%;
-    line-height: 17px;
+    line-height: 22px;
     height: 650px;
     position: relative;
     left: 375px;
@@ -421,65 +512,44 @@ input[type=button]{
   width: 170px;
   height: 170px;
   }
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+/*card header*/
 .card-header{
   font-family: 'Roboto-Condensed', sans-serif !important;
 }
-
-#dname{
-  padding: 5px;
-  width: 50%;
-  height: 200px;
-}
+/*input spacing*/
 #space{
   padding-right: 100px;  
 }
-#date{
-  padding: 5px;
-  width: 143%;
-  border-radius: 16px;
-}
-#hours_planned{
-  padding: 6px;
-  width: 143%;
-  border-radius: 16px;
-  border-style:inset;
-}
-#priority{
-  padding: 6px;
-  width: 143%;
-  border-radius: 16px;
-  height: 43px;
-  border-style:inset;
-  border-width: 2px;
-}
-#type{
-  width: 143%;
-}
-#tname{
-  width:252px;
-}
+/* card header format*/
 .card-header{
   height: 45px;
 }
+/* title class format*/
 .title{
   color: #000000;
   font-size: x-large;
   margin-top: 10px;
 }
-
-
+/*side entry format*/
 #sideentry{
   padding:0px 20px; 
 }
-
-#navigation{
-  height: 350px;
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
+/* #dname{
+  padding: 5px;
+  width: 50%;
+  height: 200px;
+} */
+
+
+
+/* #tname{
+  width:252px;
+} */
 /* label{
   padding: 10px 0px;
 } */

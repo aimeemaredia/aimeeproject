@@ -29,7 +29,7 @@
             </h6>
             <div class="container" id="sideentry">
                 <!-- display task name-->
-                <div><h4 class='grow'><a class="title" id="title2" href="{% url 'task-detail' task.id %}">{{ task.task }}</a></h4></div>
+                <div><h4 class='grow'><a class="title" id="articletask" href="{% url 'task-detail' task.id %}">{{ task.task }}</a></h4></div>
                 <!-- display priority name-->
                 <label for="title" class="text-muted" id='rightsidelabel'>Priority: </label>
                 <medium class="" id='datetext'>{{ task.priority }}</medium><br>
@@ -39,10 +39,9 @@
             </div>
             <div>
                 <!--display edit, done and delete buttons-->
-                <button class="button grow" id="edit"><a href="{% url 'edit' task.id %}">Edit</a></button>
-                <button class="button grow" id="done"><a href="{% url 'complete' task.id %}">Done</a></button>
-            
-                <button class='grow'  id="delete"><a href="{% url 'delete' task.id %}">Delete</a></button>
+                <a class="button grow" id="edit" href="{% url 'edit' task.id %}">Edit</a>
+                <a class="button grow" id="done" href="{% url 'complete' task.id %}">Done</a>
+                <a class="button grow" id="delete" href="{% url 'delete' task.id %}">Delete</a>
             </div>
         </article>
         <br>

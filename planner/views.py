@@ -233,7 +233,9 @@ def dashboard (request):
     this_week = "0"+ str(my_date.isocalendar()[1])     #save today's week as iso number in local variable 
     #filter through database for total hours planned and save as local variable
     totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
-   
+    
+    if totalhours != isinstance(totalhours,int):
+        totalhours = 0
     context = {
         #filter from current user and uncompleted tasks for total tasks
         'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),  
