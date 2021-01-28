@@ -135,8 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-#define static url
-STATIC_URL = '/static/'
+
 #define media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #define media url 
@@ -161,5 +160,17 @@ AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_FILE_OVERWRITE = False
 #set default acl to none
 AWS_DEFAULT_ACL = None
+#set aws custom domain
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+#set aws object parameters 
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+#set aws location 
+AWS_LOCATION = 'static'
+#define static url
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}/{AWS_LOCATION}/'
+#define static storage
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
 #set the heroku setting as the local settings 
 django_heroku.settings(locals())
