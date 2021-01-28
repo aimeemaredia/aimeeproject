@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400);
 @import url(https://fonts.googleapis.com/css?family=Roboto:200);
 body {
-    background: #edf6f9;
+    background: #e5fcf5;
     color: #333333;
     margin-top: 0rem;
     overflow-x: hidden;
@@ -27,7 +27,7 @@ body {
     z-index: 2; /* Stay on top */
     top: 5; /* Stay at the top */
     right: 0;
-    background-color: #83c5be; /* Black */
+    background-color: #750d37; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     max-height: calc(100vh - 3rem);
@@ -56,7 +56,7 @@ body {
     z-index: 1; /* Stay on top */
     top: 5; /* Stay at the top */
     left: 0;
-    background-color: #ffddd2; /* Black */
+    background-color: #fefffe; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     transition: 0.5s;
@@ -75,13 +75,13 @@ body {
     color: #a83939;
   }
   .topnav {
-    background-color: #006d77;
+    background-color: #210124;
     overflow: hidden;
     z-index: -1;
   }
   .topnav a {
     float: left;
-    color: #f2f2f2;
+    color: #e5fcf5;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -89,13 +89,13 @@ body {
 }
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: #e5fcf5;
   color: black;
 }
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #94e6ff;
-  color: white;
+  background-color: #e5fcf5;
+  color: black;
 }
 #article{
   border-radius: 16px;
