@@ -1,11 +1,22 @@
-{% extends 'planner/base.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
-    <div class="content-section">
-        <form method="POST">  
-            {% csrf_token %}
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    login.html file for login page
+-->
+<!-- adds to base html-->
+<!-- {% extends 'planner/base.html' %} -->
+<!-- load crispy tags for bootstrap-->
+<!-- {% load crispy_forms_tags %}
+{% block content %} -->
+    <!-- content class-->
+    <!-- <div class="content-section">
+        <form method="POST">   -->
+            <!-- security token-->
+            <!-- {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Login</legend>
+                <legend class="border-bottom mb-4">Login</legend> -->
+                <!-- render form
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
@@ -14,9 +25,10 @@
 
         </form>
         <div class="border-top pt-3">
-            <small class="text-muted"> 
-                Need an Account?<a class="ml-2" href="{% url 'register' %}">Sign In</a>
+            <small class="text-muted">  -->
+                <!-- ask if user needs an account-->
+                <!-- Need an Account?<a class="ml-2" href="{% url 'register' %}">Sign In</a>
             </small>
         </div>
     </div>
-{% endblock content %}
+{% endblock content %} -->

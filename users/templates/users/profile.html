@@ -1,16 +1,24 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    logout.html file for logout page
+-->
+<!-- load static files-->
 {% load static %}
+<!-- load crispy tags for bootstrap-->
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
-
 <head>
+    <!-- include header files-->
     {% include 'planner/header.html' %}
 </head>
 
 <body>
+    <!-- include top navigation-->
     {% include 'planner/topnav.html' %}
     <!-- Side navigation -->
-
     <div class="sidenav" id="leftnav">
         <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
         <a href="{% url 'planner-dashboard' %}">Dashboard</a>
@@ -20,21 +28,25 @@
     </div>
 
     <div class="main" id='main'>
-        
+        <!-- function to open sidebar-->
         <i onclick="openNav()" class="fas fa-bars"></i>
-
+        <!-- div for profile div-->
         <div class='content-section' id='profilepg'>
             <div class="media">
-                <img class=' test rounded-circle account-img' src="{{ user.profile.image.url }}">
+                <!-- profile image-->
+                <img class=' test rounded-circle account-img' id="profileimg'"src="{{ user.profile.image.url }}">
                 <div class="media-body">
+                    <!-- display user information-->
                     <h2 class='account-heading' align="right">{{ user.username }}</h2>
                     <p class='text-secondary' align="right">{{ user.email }}</p>
                 </div>
             </div>
             <br><br>
             <form method="POST" enctype="multipart/form-data" id='profilefields'>
+                <!-- securtiy token-->
                 {% csrf_token %}
                 <fieldset class="form-group">
+                    <!-- render forms-->
                     <legend class="border-bottom mb-4">Profile Info</legend>
                     {{ u_form|crispy }}
                     {{ p_form|crispy }}
@@ -45,10 +57,12 @@
         
             </form>
         </div>
+            <!-- logo-->
+    <div class="" id="logo">
+        <img class='w-75' src="{% static 'logo.png' %}">
+      </div>
     </div>
- 
-
+    <!-- include footer files -->
     {% include 'planner/footer.html' %}
 </body>
-
 </html>

@@ -1,3 +1,10 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    base.html file for default page setup for all templates
+-->
+<!-- load static files-->
 {% load static %}
 {{ STATIC_URL }}
 <!DOCTYPE html>
@@ -12,10 +19,9 @@
   <!-- left side navigation -->  
   <div class="sidenav" id="leftnav" >
     <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
-    <a class="active" href="{% url 'planner-dashboard' %}">Dashboard</a>
-    <a class='active' href="{%url 'planner-home'%}">Add Task</a>
-    <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
-    <a href="#">Contact</a>
+    <a class="active" href="{% url 'planner-dashboard' %}" style="font-family: 'Roboto';">Dashboard</a>
+    <a class='active' href="{%url 'planner-home'%}" style="font-family: 'Roboto';">Add Task</a>
+    <a class='active' href="{%url 'cal:calendar'%}" style="font-family: 'Roboto';">Calendar</a>
   </div>
   <!-- create right navigation bar where tasks are displayed-->
   <div id="rightnav" class="sidenav">
@@ -24,7 +30,7 @@
       {% for task in tasks %}
         <!-- display task type as header-->
         <article class="card" id="article">
-            <h6 class="card-header">
+            <h6 class="card-header" id="articleheader">
                 {{ task.type }}
             </h6>
             <div class="container" id="sideentry">
@@ -62,11 +68,11 @@
               </div>
       </div>
     </main>
+    <div class="" id="logo">
+      <img class='w-75' src="{% static 'logo.png' %}">
+    </div>
   </div>
-  </div>
-  <div class="" id="logo">
-    <img class='w-75' src="{% static 'logo.png' %}">
-  </div>
+
   <!-- include the footers-->
   {% include 'planner/footer.html' %}
 </body>

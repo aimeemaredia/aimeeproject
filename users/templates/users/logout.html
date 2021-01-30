@@ -1,36 +1,41 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    logout.html file for logout page
+-->
+<!-- load static files-->
 {% load static %}
+<!-- load crispy tags for bootstrap-->
 {% load crispy_forms_tags %}
-
-{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
+    <!-- include header files-->
     {% include 'planner/header.html' %}
 </head>
 
 <body>
-
-    <!-- Side navigation -->
-
-
-
-
+    <!-- content div-->
     <main role="main" class="container">
-
-        <div class="content-section">
-            <h1>You have been logged out!</h1>
-<div class="border-top pt-3">
-    <small class="text-muted"> 
-        <a class="ml-2" href="{% url 'login' %}">Log in again</a>
-    </small>
-</div>
-          </div>
+        <div class="content-section" id="logout">
+            <!-- logout method -->
+            <h3 >You have been logged out!</h3>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    <!-- login link-->
+                    <a class="ml-2" href="{% url 'login' %}">Log in again</a>
+                </small>
+            </div>
+        </div>
     </main>
-
-
+    <!-- logo-->
+    <div class="" id="logo">
+        <img class='w-75' src="{% static 'logo.png' %}">
+      </div>
+    <!-- include footer files-->
     {% include 'planner/footer.html' %}
 </body>
 
 </html>
-

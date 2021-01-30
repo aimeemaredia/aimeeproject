@@ -1,0 +1,234 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    help.html file for help page
+-->
+<!-- load static pages-->
+{% load static %}
+{{ STATIC_URL }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- include headers from header.html -->
+    {% include 'planner/header.html' %}
+</head>
+
+<body>
+    <!-- include the top navigation from topnav.html-->
+    {% include 'planner/topnav.html' %}
+    <!-- left side navigation -->
+    <div class="sidenav" id="leftnav">
+        <i href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i>
+        <a class="active" href="{% url 'planner-dashboard' %}">Dashboard</a>
+        <a class='active' href="{%url 'planner-home'%}">Add Task</a>
+        <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
+        <a href="#">Contact</a>
+    </div>
+    <!-- main div-->
+    <div class="main" id='main'>
+        <!-- functions to open and close the left navigation-->
+        <i onclick="openNav()" class="fas fa-bars"></i>
+        <!-- helpdiv for style-->
+        <div class="card w-75" id="helpdiv">
+            <h2 id="h2">Help Page</h2>
+            <h4 id='h4'>Add task</h4>
+            <p id ="p">To add a task, navigate to the home page from the top or click Add Task in the side bar. 
+                       You will directed to the task input where you can fill out the neccessary fields. Below is a sample entry using some of the fields.
+                       To save the entry just simply click the add button on the home page.</p>
+            <p id ="p">Note: All fields are not mandatory, but a default value will
+                       be saved if it is blank.</p>
+            <!-- sample input fields (name, priority and date)-->
+            <table id="inputhelp">
+                <tr>
+                    <!-- Task Name-->
+                    <td><label for="task" id='help1' >Task Name:</label><br>
+                        <input type="text" class="" id='help1' name="task" value="Learning Taskable"><br>
+                    </td>
+                    <!-- date -->
+                    <td><label for="date" id='help2'>Date:</label><br>
+                        <input type="date" class="" id='helpdate' name="date" value="2021-02-01">
+                    </td>
+                    <!-- priority-->
+                    <td><label for="priority" id='help3'>Priority:</label><br>
+                        <select name="priority" id='helppriority' class=" w-100">
+                            <option id='abc' value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </td>
+                    <td><input type="submit" id='help4' name="tsubmit" class='w-50' value="Add"></td>
+                </tr>
+            </table>
+            <br>
+            <!-- explanation -->
+            <h4 id='h4'>Pop-up Tasks</h4>
+            <p id ="p">After you add the task, it will pop up in the right side bar of the home page. Below is an example of task we just created
+                       would look like. From here you have the option of editing the existing information by pressing the edit button. This will display 
+                       yours existing entries in the form. 
+                       You can also press the done button which will complete the task and it will disappear from the page. It will be saved to the completed tasks. 
+                       The last option is to delete the task using the delete button.
+            </p>
+            <p id="p">If you click on the task name it will direct you to a more detailed page of the specific task information you can see. This is explained more 
+                      in the next section. 
+            </p>
+            <br>
+            <!-- side article example-->
+            <article class="card " id="helparticle">
+                <h6 class="card-header">
+                    example
+                </h6>
+                <div class="container" id="sideentry">
+                    <!-- display task name-->
+                    <div>
+                        <h4 class='grow'><a class="title" id="helparticletask" href="#">Learning Taskable</a></h4>
+                    </div>
+                    <!-- display priority name-->
+                    <label for="title" class="text-muted" id='helprightsidelabel'>Priority: </label>
+                    <medium class="" id='datetext'>High</medium><br>
+                    <!-- display date goal-->
+                    <label for="title" class="text-muted" id='helprightsidelabel'>Date Goal: </label>
+                    <medium class="" id="datetext">February 1, 2021</medium><br>
+                </div>
+                <div>
+                    <!--display edit, done and delete buttons-->
+                    <a class="button grow" id="edit" href="#">Edit</a>
+                    <a class="button grow" id="done" href="#">Done</a>
+                    <a class="button grow" id="delete" href="#">Delete</a>
+                </div>
+            </article>
+            <br>
+            <!-- explanation-->
+            <h4 id='h4'>Task Details</h4>
+            <p id ="p">Once you've clicked on the task name, you will be directed to the detail page where all the information you entered will be diplayed
+                       including the description. 
+            </p>
+            <p id="p">From here you have the option of completing the task using the done button or deleting the task using the delete button. If you are done reviewing the 
+                      details, the back buttom will redirect you to the home page. 
+            </p>
+            <br>
+            <!-- detail page example-->
+            <article class="card w-50 " id="helpdetaildiv">
+                <!-- display task type in the header-->
+                <h6 class="card-header" id='detailheaderh'>
+                    example
+                </h6>
+                <div class="container" id="sideentry">
+                    <!-- security token -->
+                    {% csrf_token %}
+                    <!-- display task name-->
+                    <div class="title" id="helptitle1">Learning Taskable</div><br>
+
+                    <table>
+                        <!-- display the date added-->
+                        <tr> <label for="title" id="helpdetail1" class="text-muted">Date Added: </label>
+                            <medium class="" id='helpdetail'>January 29th, 2021</medium><br>
+                        </tr>
+                        <tr><br></tr>
+                        <!-- display the day set-->
+                        <tr><label for="title" id='helpdetail3' class="text-muted">Date Goal: </label>
+                            <medium class="" id="helpdetail">February 1st, 2021</medium><br>
+                        </tr><br>
+                        <!-- display the hours planned -->
+                        <tr> <label for="title" id="helpdetail1" class="text-muted">Hours Planned: </label>
+                            <medium class="" id='helpdetail'>1</medium><br>
+                        </tr>
+                        <tr><br></tr>
+                        <!-- display the priority-->
+                        <tr><label for="title" id='helpdetail3' class="text-muted">Priority: </label>
+                            <medium class="" id="helpdetail">High</medium><br>
+                        </tr><br>
+                        <!-- display the description-->
+                        <tr><label for="title" id='helpdetail3' class="text-muted">Description: </label><br>
+                            <medium class="" id="helpdetail">Learning Taskable</medium><br>
+                        </tr>
+                    </table>
+                </div>
+                <!-- button to complete a task-->
+                <button class="button grow" id="helpdone"> <a href="#">Done</a></button>
+                <!-- buttom to delete a task -->
+                <button class="button grow" id="helpdelete"><a href="#">Delete</a></button>
+                <!-- button to return to the home page-->
+                <button class="button grow" id="backh"><a href="#">Back</a></button>
+            </article>
+            <!-- explanation-->
+            <br>
+            <h4 id='h4'>Dashboard Page</h4>
+            <p id ="p">Using the left side navigation you can click on the dashboard tab to go to the dash board page. There you will see a breakdown of your
+                       tasks in a thoughtful manner. Below is an example of the priority section of the page. Above we set the task priority to high and we can see
+                       now we have 1 total task which is also a high priority task. 
+            </p>
+            <p id="p">Clicking on the subheadings will open a list of the items in that category. Next I will explain the dashboard lists. 
+            </p>
+            <br>
+            <!-- dashboard div example-->
+            <div class="card " id='helpcarddash'>
+                <div class="card-body with-margin">
+                    <!-- total tasks -->
+                    <h5 class='grow'><a class='card-title' href="#">Total Tasks</a></h5>
+                    <p class="card-text" align='right'> 1 </p>
+                    <!-- high priority tasks -->
+                    <h5 class='grow'><a class='card-title' href="#"> High Priority Tasks</a></h5>
+                    <p class="card-text" align='right'>1
+                        <!-- medium priority tasks -->
+                    <h5 class='grow'><a class='card-title' href="#"> Medium Priority Tasks</a>
+                    </h5>
+                    <p class="card-text" align='right'>0</p>
+                    <!-- low priority tasks -->
+                    <h5 class='grow'><a class='card-title' href="#"> Low Priority Tasks</a></h5>
+                    <p class="card-text" align='right'>0
+                    </p>
+                </div>
+            </div>
+            <!-- explanation-->
+            <br>
+            <h4 id='h4'>Dashboard Lists</h4>
+            <p id ="p">After clicking on the subheading you want, a list of tasks like the one below will popup. This will give all the information of the task except the description,
+                       which can be found on the detail page. Click on the task name list redirect you to the detail page.</p>
+            <p id ="p"> From the list you can complete a task or just see what you have scheduled for the day. 
+            </p>
+            <br>
+            <!-- task list example-->
+            <article id='alltasksarth' class="">
+                <table>
+                    <!-- create table -->
+                    <tr>
+                        <!-- create row-->
+                        <!--display task-->
+                        <td> <label for="task" id="cellid1h" class="">Task:</label></td>
+                        <td> <label for="task" id="cellid2h" class="text-muted">Learning Taskable</label></td>
+                        <!--display date-->
+                        <td> <label for="due_date" id="cellid3h" class="">Due Date:</label></td>
+                        <td> <label for="due_date" id="cellid4h" class="text-muted">Feb. 1st, 2021</label></td>
+                        <!--display date added-->
+                        <td> <label for="date_added" id="cellid5h" class="">Date Added:</label></td>
+                        <td> <label for="date_added" id="cellid6h" class="text-muted">Jan. 29th, 2021</label></td>
+                        <!--display hours planned-->
+                        <td> <label for="hours_planned" id="cellid7h" class="">Hours Planned:</label></td>
+                        <td> <label for="hours_planned" id="cellid8h" class="text-muted">1</label></td>
+                        <!--display type-->
+                        <td> <label for="type" id="cellid9h" class="">Type:</label></td>
+                        <td> <label for="type" id="cellid10h" class="text-muted">example</label></td>
+                        <!--display priority-->
+                        <td> <label for="priority" id="cellid11h" class="">Priority:</label></td>
+                        <td> <label for="priority" id="cellid12h" class="text-muted">high</label></td>
+                        <!-- button to complete task-->
+                        <button class='grow' id="completebuttonh"><a href="#">Done</a></button>
+                    </tr>
+                </table>
+            </article>
+            <br>
+            <h4 id='h4'>Calendar Page</h4>
+            <p id ="p"> To go to the calendar page you just need to click on the calendar tab in the left side bar. There the calendar will show you which tasks
+                        you have scheduled on each day, with links to the detail page.  
+            </p><br>
+        </div>
+        <br>
+     
+    </div>
+    <!-- include the footers-->
+    {% include 'planner/footer.html' %}
+</body>
+
+</html>

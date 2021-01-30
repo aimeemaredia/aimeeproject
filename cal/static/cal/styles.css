@@ -9,10 +9,10 @@
   margin-left: 160px;
   margin-right: 100px;
   position: relative;
-  top: -20px;
+  top: -35px;
   font-size: 13px;
   border: none;
-  background-color: #f5f1e5;
+  background-color: #e7dfc6;
   border-radius: 2px;
   box-shadow: 2px 2px 2px 0px;
 
@@ -118,12 +118,13 @@ a {
   color: black;
 }
 
-/*styling for calendar week rows****************************************************************************************/
+/*styling for calendar weekday names****************************************************************************************/
 #calLink{
   font-family: 'Roboto Condensed';
   font-weight: 300;
   color: #2d3142;
 }
+/*styling for calendar weekday names when hover****************************************************************************************/
 #calLink:hover{
-   color: #2274a5;
+   color: #b1b5ca;
 }

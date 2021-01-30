@@ -1,47 +1,70 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    editform.html file for setting existing fields in the input form for editing 
+-->
+<!-- adds on to the base template -->
 {% extends 'planner/base.html' %}
+<!-- load crispy form bootstrap rendering-->
 {% load crispy_forms_tags %}
 {% block content %}
 
+<!-- for loop to get context variables from the view-->
 {% for task in tasks %}
-  <body onload="javascript:change('{{task.priority}}')"></body>
+<!-- import js function to display current priority -->
+
+<body onload="javascript:change('{{task.priority}}')"></body>
+<!-- create div for the form-->
 <div id="inputform" class="container" oncontextmenu="">
   <br>
   <h2 id='label-title'>Task</h2>
 
+  <!-- create form class with the return url-->
   <form class="contact-form" method="post" action="/update_task/" id='forminput'>
-    
+    <!-- security token -->
     {% csrf_token %}
+    <!-- Task field-->
     <label for="task" id="label">Task Name:</label><br>
-    <input type="text" class="w-25" id="task" name="task" value= "{{task.task}}"><br>
+    <input type="text" class="w-25" id="task" name="task" value="{{task.task}}"><br>
     <input type="hidden" id="hidden" name="hidden" value="{{task.id}}">
-    <table> 
+    <table>
       <tr>
+        <!-- Date label -->
         <td><label for="date" id='label'>Date:</label></td>
+        <!-- Type Label-->
         <td><label for="type" id='label'> Type:</label></td>
       </tr>
-      <td id="space"><input type="date" id="date" name="date" value= "{{task.date|date:'Y-m-d'}}"></td>
+      <!-- date input-->
+      <td id="space"><input type="date" id="date" name="date" value="{{task.date|date:'Y-m-d'}}"></td>
+      <!-- type input-->
       <td><input type="text" id="type" name="type" value={{task.type}}></td>
       <tr>
+        <!-- Hours Planned label-->
         <td> <label for="hours_planned" id='label'>Hours Planned:</label><br></td>
+        <!-- Priority Label -->
         <td> <label for="priority" id='label'>Priority:</label></td>
       </tr>
+      <!-- Hours planned input-->
       <td id="space"><input type="number" id="hours_planned" name="hours_planned" value="{{ task.hours_planned }}"></td>
-    
-      <td><select name="priority" id="priority" >
-        <option value="high">High</option>
-        <option value="medium">Medium</option>
-        <option value="low">Low</option>
-      </select></td>
+
+      <!-- dropdown choices -->
+      <td><select name="priority" id="priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select></td>
     </table>
-  
+    <!-- description label-->
     <label for="desc" id='label'>Description:</label><br>
-
-    <textarea name="desc" id="desc" cols="100" rows="5" value= "">{{task.desc}}</textarea><br><br>
-    <input type="submit" class ="grow" id="label" name="tsubmit" class='w-25' value="Change">
-     </form>
-    <a class ="button" id ="backedit"  href="{% url 'planner-home' %}">Back</a>
-
+    <!-- description text area-->
+    <textarea name="desc" id="desc" cols="100" rows="5" value="">{{task.desc}}</textarea><br><br>
+    <!-- submit buttom-->
+    <input type="submit" class="grow" id="label" name="tsubmit" class='w-25' value="Change">
+  </form>
+  <!-- back to home page button-->
+  <a class="button" id="backedit" href="{% url 'planner-home' %}">Back</a>
   <br>
- 
+  <!-- end all loops-->
   {% endfor %}
   {% endblock content %}

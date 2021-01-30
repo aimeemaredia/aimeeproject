@@ -1,37 +1,41 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    loginfirst.html file for login page
+-->
+<!-- load static files -->
 {% load static %}
+<!-- load crispy tags for bootstrap-->
 {% load crispy_forms_tags %}
-
-{% load static %}
 <!DOCTYPE html>
 <html>
-
 <head>
+    <!-- include header file -->
     {% include 'planner/header.html' %}
 </head>
 
 <body>
-
-    <!-- Side navigation -->
-
-
-
-    <div class="main">
-
+   <div class="main">
+       <!-- content login div-->
         <main role="main" class="content-section" id='login-main'>
-           
+                <!-- submit method and security token-->
                 <form method="POST">
                     {% csrf_token %}
                     <fieldset class="form-group">
                         <legend class="border-bottom mb-4">Login</legend>
+                        <!-- ender form-->
                         {{ form|crispy }}
                     </fieldset>
                     <div class="form-group">
+                        <!-- login button-->
                         <button class="btn btn-outline-info" type="submit">Login</button>
                     </div>
 
                 </form>
                 <div class="border-top pt-3">
                     <small class="text-muted">
+                        <!-- register link-->
                         Need an Account?<a class="ml-2" href="{% url 'register' %}">Register</a>
                     </small>
                 </div>
@@ -39,7 +43,10 @@
         </main>
     </div>
     </div>
-
+    <div class="" id="logo">
+        <img class='w-75' src="{% static 'logo.png' %}">
+      </div>
+    <!-- include footer-->
     {% include 'planner/footer.html' %}
 </body>
 

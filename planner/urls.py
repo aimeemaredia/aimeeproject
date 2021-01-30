@@ -32,11 +32,13 @@ urlpatterns = [
     path('low-tasks/',views.lowtasks, name="planner-low-tasks"),
     # url path to display tasks with this month
     path('month-tasks/',views.monthtasks, name="planner-month-tasks"),
-    # url path to display current task detail 
+     # url path to display tasks with this week
     path('week-tasks/',views.weektasks, name="planner-week-tasks"),
-    # url path to display current task detail 
+    # url path to display tasks today
+    path('day-tasks/',views.daytasks, name="planner-day-tasks"),
+     # url path to display tasks with this year
     path('year-tasks/',views.yeartasks, name="planner-year-tasks"),
-    # url path to display current task detail 
+    # url path to display completed tasks
     path('complete-tasks/',views.completetasks, name="planner-complete-tasks"),
     # url path to display current task detail 
     path('task/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
@@ -50,6 +52,7 @@ urlpatterns = [
     url(r'^add_task/$', views.add_task, name="add_task"),
     # url path to update task
     path('update_task/', views.edittask, name="update_task"),
+    path('help/', views.help, name="help"),
     # url path to edit task 
     url(r'^edit_task/(?P<task_id>\D+)/$', views.edittask, name='edit_task')
     

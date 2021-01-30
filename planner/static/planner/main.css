@@ -1,3 +1,10 @@
+/* Aimee Maredia 
+   Mr. Moore
+   ICS4U
+   Jan, 29th 2021
+   main.css field for styling all the planner templates */
+
+/* import Roboto google font for use */
 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400);
 @import url(https://fonts.googleapis.com/css?family=Roboto:200);
 /* body format for whole website */
@@ -41,14 +48,14 @@ body {
   }
   /* right sidebar */ 
   #rightnav {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 27%; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 2; /* Stay on top */
-    top: 5; /* Stay at the top */
+    height: 100%;
+    width: 27%; 
+    position: fixed; 
+    z-index: 2;
+    top: 5;
     right: 0;
-    background-color: #2274a5; /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: #2274a5; 
+    overflow-x: hidden;
     padding-top: 20px;
     max-height: calc(100vh - 3rem);
     overflow-y: scroll;
@@ -56,14 +63,14 @@ body {
   }
   /* left sidebar  */
   #leftnav {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 0; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 5; /* Stay at the top */
+    height: 100%; 
+    width: 0; 
+    position: fixed; 
+    z-index: 1;
+    top: 5;
     left: 0;
-    background-color: #e7dfc6; /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: #e7dfc6; 
+    overflow-x: hidden; 
     padding-top: 20px;
     transition: 0.5s;
   } 
@@ -83,7 +90,8 @@ body {
   }
   /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
-    color: #a83939;
+    color: #2274a5;
+    text-decoration: none;
   }
   /* top navigation */
   .topnav {
@@ -107,18 +115,18 @@ body {
 }
  /* priority and task article field */
 #datetext{
-  font-family: 'Roboto-Condensed', sans-serif !important;
+  font-family: 'Roboto-Condensed';
   float:right;
   font-size: large;
 }
 /* priority and date label */ 
 #rightsidelabel{
-  font-family: 'Roboto-Condensed', sans-serif !important;
+  font-family: 'Roboto-Condensed';
   font-size: large;
 }
 /* label for task form fields*/
 #label, #label-title{
-  font-family: 'Roboto', sans-serif !important;
+  font-family: 'Roboto';
 }
 /* rigth side bar article box */  
 #article{
@@ -127,12 +135,25 @@ body {
   background-color: #ffffff;
   box-shadow: 4px 4px 5px;
 }
+/*article header style */
+#articleheader{
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background-color: #c6dae9;
+  font-family: 'Roboto';
+
+}
 /* text and password inputs*/
 input[type=text], input[type=password]{
   padding: 6px; 
   border-radius: 16px;
   border: none;
   box-shadow: 1px 1px 2px;
+}
+input[type=text]:focus, input[type=date]:focus, #priority:focus, input[type=number]:focus, #desc:focus, input[type=email]:focus{
+  outline-style: none;
+  background-color: #ebebeb;
+
 }
 /* submit input*/
 input[type=submit]{
@@ -142,6 +163,13 @@ input[type=submit]{
   border-radius: 16px;
   background-color: #e7dfc6;
   color: black;
+  border: none;
+  box-shadow: 1px 1px 2px;
+}
+/*email */
+input[type=email]{
+  padding: px;
+  border-radius: 16px;
   border: none;
   box-shadow: 1px 1px 2px;
 }
@@ -184,6 +212,7 @@ input[type=submit]{
   border: none;
   box-shadow: 1px 1px 2px;
   border-width: 2px;
+  font-family: "Roboto";
 }
 /*type input*/
 #type{
@@ -200,7 +229,9 @@ input[type=submit]{
   box-shadow: 1px 1px 2px;
 }
 /* edit, done and delete buttons on all pages*/
-#edit, #done, #delete, #doned, #deleted{
+#edit, #done, #delete, #doned, #deleted, #helpdone, #helpdelete, #back{
+  font-family: 'Roboto';
+  font-weight: 400;
   color: black;
   padding: 10px 20px;
   text-align: center;
@@ -238,33 +269,72 @@ input[type=submit]{
 } 
 /* task name */
   #articletask{
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Roboto';
     position: relative;
     top: 5px;
-    font-size: xx-large;
-    line-height: 70px;
+    padding-top: 2px;
+    font-size: x-large;
+    line-height: 40px;
     margin-left: 0px;
     transition: all .1s ease-in-out; 
     }
   /* task link */
-  #articletask,a:hover{
-    color: black;
+  #articletask a:hover{
+    color:#2274a5 ;
     text-decoration: none;
     transform: scale(1.01); 
     text-decoration: none;
     color: #333333;
   }
-/***********************************************************login page     */     
+/***********************************************************login, register and profile pages    */     
   #login-main{
+    font-family: 'Roboto';
+    background-color: #f8f5ea;
     position: absolute;
-    margin-top: 150px;
-    margin-left: 460px;
+    margin-top: 10%;
+    margin-left: 30%;
     width: 40%;
-    box-shadow: 0 0 10px;
+    box-shadow: 1px 1px 2px;
+    border-radius: 16px;
   }
+  #logout{
+    font-family: 'Roboto';
+    background-color: #f8f5ea;
+    position: absolute;
+    font-size: large;
+    margin-top: 17%;
+    margin-left: 22%;
+    width: 28%;
+    box-shadow: 1px 1px 2px;
+    border-radius: 16px;
+  }
+  #registerpg{
+    font-family: 'Roboto';
+    background-color: #f8f5ea;
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 12%;
+    width: 50%;
+    box-shadow: 1px 1px 2px;
+    border-radius: 16px;
+    line-height: 22px;
+  }
+#profilepg{
+  font-family: 'Roboto';
+  background-color: #f8f5ea;
+  border-radius: 16px;
+  width:50%;
+  line-height: 22px;
+  height: 650px;
+  position: relative;
+  left: 375px;
+  box-shadow: 0 0 10px;
+}
+
   /************************************************************dashboard page      */
   /*///////////////////////////////////////////////////// alltasks cell formatting /////////////////////////////////////////////////*/ 
   #cellid1, #cellid2, #cellid3, #cellid4, #cellid5, #cellid6, #cellid7, #cellid8, #cellid9, #cellid10, #cellid11, #cellid12{
+    font-family: 'Roboto';
     position:relative;
     top: 10px;
   }
@@ -273,9 +343,10 @@ input[type=submit]{
     width: 60px;  
   }
   #cellid2{
+    top:5px;
     width: 180px;  
   }
-   #cellid3{
+  #cellid3{
     width: 100px;
   }
   #cellid4{
@@ -297,7 +368,7 @@ input[type=submit]{
     width: 70px;
   }
   #cellid10{
-    width: 95px;
+    width: 150px;
   }
   #cellid11{
     width: 95px;
@@ -334,17 +405,18 @@ input[type=submit]{
   padding: 2px 15px;
   border: "none";
   box-shadow: 2px 2px 2px 0px;
+  font-family: 'Roboto';
 
   }
   /* dashboard card link formats */ 
   .card-title, .card-title:visited,.card-title:active{
     text-decoration: none;
-    font-family:'Roboto',sans-serif;
+    font-family:'Roboto';
     color: #0e052e;
   }
   /* dashboard number format */ 
   .card-text{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     font-size: larger;
     color: #000000;
     position:relative;
@@ -361,11 +433,12 @@ input[type=submit]{
   /* dashboard link hover */ 
   .card-title:hover{
     text-decoration: none;
-    font-family: 'Roboto-Condensed', sans-serif !important;
+    font-family: 'Roboto';
     color: #2274a5;   
   }
   /* all tasks complete button */ 
   #completebutton{
+    font-family: 'Roboto';
     background-color: #e7dfc6;
     border: 0px inset black;
     color: black;
@@ -382,6 +455,7 @@ input[type=submit]{
   }
   /* complete button link color*/
   #completebutton a{
+    font-family: 'Roboto';
     color:#000000;
   }
 /*********************************************************detail page          */ 
@@ -395,7 +469,8 @@ input[type=submit]{
   }
   /*detail title*/
   #title1{
-  font-family: 'Roboto', sans-serif !important;
+  font-family: 'Roboto';
+  font-weight: 500;
   position: relative;
   top: 5px;
   font-size: xx-large;
@@ -405,20 +480,29 @@ input[type=submit]{
   }
   /* detail header */ 
   #detailheader{
-    font-size: large;
     font-family: 'Roboto';
+    font-weight: 300;
+    font-size: large;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    background-color: #97afc0;
+
   }
   /*detail labels*/
   #detail, #detail1, #detail3{
+    font-family: 'Roboto';
+    font-weight: 400;
     margin-right: 25px;
     position: relative;
     font-size: x-large;
-    font-family: 'Roboto-Condensed', sans-serif !important;
     margin-left: 25px;
   }
   /*individual detail fields*/ 
   #detail{
-    padding: 10px;
+    display: inline;
+    position:relative;
+    top: -5px;
+    padding: 0px;
     float: right;
   }
   #detail1{
@@ -429,6 +513,8 @@ input[type=submit]{
   }
   /*done and delete buttons */
   #doned {
+    font-family: 'Roboto';
+    font-weight: 400;
     background-color: #e7dfc6;
     left: 100px; 
     top: 200px;
@@ -437,13 +523,23 @@ input[type=submit]{
     top: 525px;
   }
   #deleted {
+    font-family: 'Roboto';
+    font-weight: 400;
     background-color:  #e7dfc6;
     position: absolute;
     left: 85%; 
     top: 525px; 
   }
+  #back{
+    font-family: 'Roboto';
+    font-weight: 400;
+    background-color:  #e7dfc6;
+    position: absolute;
+    left: 6%; 
+    top: 525px; 
+  }
   /*links*/
-  #doned a, #deleted a{
+  #doned a, #deleted a, #helpdone a, #helpdelete a, #back a{
     color: #000000;
   }
   /* detail description */
@@ -471,15 +567,6 @@ input[type=submit]{
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-/*register page*/
-#registerpg{
-  width:75%;
-  line-height: 22px;
-  position:relative;
-  left: 120px;
-  top: 50px;
-  box-shadow: 0 0 10px;
-}
 /*scroll class format*/
 .scroll{
   max-height: 50%;
@@ -489,24 +576,16 @@ input[type=submit]{
 .with-margin{
   margin-bottom: 3px;
 }
-
+/* styling for grow class */
 .grow { 
   transition: all .1s ease-in-out; 
   }
-  .grow:hover { 
+/* styling for grow class links when hovering */
+.grow:hover { 
   transform: scale(1.01); 
   text-decoration: none;
   color: #333333;
-  }
-  #profilepg{
-    border-radius: 16px;
-    width:50%;
-    line-height: 22px;
-    height: 650px;
-    position: relative;
-    left: 375px;
-    box-shadow: 0 0 10px;
-  }
+}
 /* Style the links inside the navigation bar */
 .test {
   width: 170px;
@@ -519,6 +598,10 @@ input[type=submit]{
 /*input spacing*/
 #space{
   padding-right: 100px;  
+}
+/* account img */ 
+.account-img{
+  background-color: #fff;
 }
 /* card header format*/
 .card-header{
@@ -539,90 +622,9 @@ input[type=submit]{
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-/* #dname{
-  padding: 5px;
-  width: 50%;
-  height: 200px;
-} */
-
-
-
-/* #tname{
-  width:252px;
-} */
-/* label{
-  padding: 10px 0px;
-} */
-/*#inputform{
-  border-color: rgb(0, 0, 0);
-}*/
- /* The sidebar menu */
-/* .dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
+/* help pahe div */
+#helpdiv{
+  margin-left: 200px;
 }
-/* Dropdown button on hover & focus */
-/*.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-/* The container <div> - needed to position the dropdown content */
-/*.dropdown {
-  position: relative;
-  display: inline-block;
-}
-/* Dropdown Content (Hidden by Default) */
-/*.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-/* Links inside the dropdown */
-/*.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-/* Change color of dropdown links on hover */
-/*.dropdown-content a:hover {background-color: #ddd} */
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
-/* .sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-  margin-top: 35px;
-} */
-  /* .collapsible {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-  }
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-  /* #collapsible.active, #collapsible.collapsible:hover {
-    background-color: #ccc;
-  }
-  /* Style the collapsible content. Note: hidden by default */
-  /* #collapse {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-  #more {display: none;}   */
+

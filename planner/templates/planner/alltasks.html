@@ -1,3 +1,9 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    alltasks.html file for dashboard task list rendering 
+-->
 <!-- extend from dashboard.html-->
 {% extends 'planner/dashboard.html' %}
 {% block content %}
@@ -11,7 +17,7 @@
     <tr>     <!-- create row-->
         <!--display task-->
         <td> <label for="task" id="cellid1" class="">Task:</label></td>
-        <td> <label for="task" id="cellid2" class="text-muted">{{ item.task }}</label></td>
+        <td> <label for="task" id="cellid2"><a for="task" id="cellid2" class=" grow label text-muted" href="{% url 'task-detail' item.id %}">{{ item.task }}</a></label></td>
         <!--display date-->
         <td> <label for="due_date" id="cellid3" class="">Due Date:</label></td>
         <td> <label for="due_date" id="cellid4" class="text-muted">{{ item.date }}</label></td>
@@ -28,7 +34,7 @@
         <td> <label for="priority" id="cellid11" class="">Priority:</label></td>
         <td> <label for="priority" id="cellid12" class="text-muted">{{ item.priority }}</label></td>
         <!-- button to complete task-->
-        <button class='grow' id="completebutton"><a href="{% url 'complete' item.id %}">Done</a></button>
+        <a class=' button grow' id="completebutton"href="{% url 'complete' item.id %}">Done</a>
     </form>
     </tr>
 </table>

@@ -1,3 +1,10 @@
+<!--Aimee Maredia 
+    Mr. Moore
+    ICS4U
+    Jan. 29th 2021
+    dashboard.html file for dashboard breakdown rendering
+-->
+<!-- load static files-->
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -13,17 +20,16 @@
     <!-- Side navigation -->
 
     <!--include left side navigation-->
-    <div class="sidenav" id="leftnav">
+    <div class="sidenav" id="leftnav" >
         <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
-        <a href="{% url 'planner-dashboard' %}">Dashboard</a>
-        <a class='active' href="{%url 'planner-home'%}">Add Task</a>
-        <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
-        <a href="#">Contact</a>
-    </div>
+        <a class="active" href="{% url 'planner-dashboard' %}" style="font-family: 'Roboto';">Dashboard</a>
+        <a class='active' href="{%url 'planner-home'%}" style="font-family: 'Roboto';">Add Task</a>
+        <a class='active' href="{%url 'cal:calendar'%}" style="font-family: 'Roboto';">Calendar</a>
+      </div>
 
     <div class="main" id='main'>
         <!-- include leftnav open and close functions-->
-        
+
         <i onclick="openNav()" class="fas fa-bars"></i>
 
         <!-- create row to display 4 different sections-->
@@ -32,16 +38,22 @@
 
                 <!-- section 1 with task priorty-->
                 <div class="card" id='carddash'>
-                    <div class="card-body with-margin" >
+                    <div class="card-body with-margin">
+                        <!-- total tasks -->
                         <h5 class='grow'><a class='card-title' href="{% url 'planner-all-tasks' %}">Total Tasks</a></h5>
-
                         <p class="card-text" align='right'> {{ total }} </p>
-                        <h5 class='grow'><a class='card-title' href="{% url 'planner-high-tasks' %}"> High Priority Tasks</a></h5>
+                        <!-- high priority tasks -->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-high-tasks' %}"> High Priority
+                                Tasks</a></h5>
                         <p class="card-text" align='right'>{{ high }}
-                        <h5 class='grow'><a class='card-title' href="{% url 'planner-medium-tasks' %}"> Medium Priority Tasks</a>
+                            <!-- medium priority tasks -->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-medium-tasks' %}"> Medium Priority
+                                Tasks</a>
                         </h5>
                         <p class="card-text" align='right'>{{ medium }}</p>
-                        <h5 class='grow'><a class='card-title' href="{% url 'planner-low-tasks' %}"> Low Priority Tasks</a></h5>
+                        <!-- low priority tasks -->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-low-tasks' %}"> Low Priority
+                                Tasks</a></h5>
                         <p class="card-text" align='right'>{{ low }}
                         </p>
                     </div>
@@ -51,16 +63,26 @@
             <div class="col-sm-3 col-md-offset-0">
                 <div class="card" id='carddash'>
                     <!-- section 2 with task due dates-->
-                    <div class="card-body" >
-                        <h5 class='grow'><a class='card-title'  href="{% url 'planner-year-tasks' %}"> Tasks Due This Year</a></h5>
+                    <div class="card-body">
+                        <!-- tasks this year-->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-year-tasks' %}"> Tasks Due This
+                                Year</a></h5>
                         <p class="card-text " align='right'>{{ year }}
                         </p>
-                        <h5 class='grow'><a class='card-title'  href="{% url 'planner-month-tasks' %}"> Tasks Due This Month</a></h5>
+                        <!-- tasks this month-->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-month-tasks' %}"> Tasks Due This
+                                Month</a></h5>
                         <p class="card-text" align='right'>{{ month }}
                         </p>
-                        <h5 class='grow'><a class='card-title' href="{% url 'planner-week-tasks' %}"> Tasks Due This Week</a></h5>
-                        <p class="card-text"align='right' >{{ week }}
+                        <!-- tasks this week-->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-week-tasks' %}"> Tasks Due This
+                                Week</a></h5>
+                        <p class="card-text" align='right'>{{ week }}
                         </p>
+                        <!-- tasks this month-->
+                        <h5 class='grow'><a class='card-title' href="{% url 'planner-day-tasks' %}"> Tasks Due Today</a></h5>
+                    <p class="card-text" align='right'>{{ day }}
+                    </p>
                     </div>
                 </div>
 
@@ -68,10 +90,22 @@
             <div class="col-sm-3">
                 <div class="card" id='carddash'>
                     <!-- section 3 with total hours scheduled-->
-                    <div class="card-body" >
-
-                        <h5 ><a class='card-title' > Total Hours Scheduled</a></h5>
-                        <p class="card-text"align='right'>{{ totalhours }}
+                    <div class="card-body">
+                        <!-- total hours-->
+                        <h5><a class='card-title'> Total Hours Scheduled</a></h5>
+                        <p class="card-text" align='right'>{{ totalhours }}
+                        </p>
+                        <!-- hours this month-->
+                        <h5><a class='card-title'> Hours Scheduled this Month</a></h5>
+                        <p class="card-text" align='right'>{{ hourmonth }}
+                        </p>
+                        <!-- hours this week-->
+                        <h5><a class='card-title'> Hours Scheduled this Week</a></h5>
+                        <p class="card-text" align='right'>{{ hourweek }}
+                        </p>
+                        <!-- hours today-->
+                        <h5><a class='card-title'> Hours scheduled Today</a></h5>
+                        <p class="card-text" align='right'>{{ hourday }}
                         </p>
                     </div>
                 </div>
@@ -80,16 +114,16 @@
             <div class="col-sm-3">
                 <div class="card" id='carddash'>
                     <!-- section 1 with tasks-->
-                    <div class="card-body" >
-                        <h5 class="card-title grow"><a class='card-title' href="{% url 'planner-complete-tasks' %}"> Tasks Competed</a></h5>
-                        <p class="card-text"align='right'>{{ complete }}
+                    <div class="card-body">
+                        <!-- tasks completed-->
+                        <h5 class="card-title grow"><a class='card-title' href="{% url 'planner-complete-tasks' %}">
+                                Tasks Completed</a></h5>
+                        <p class="card-text" align='right'>{{ complete }}
                         </p>
 
                     </div>
                 </div>
             </div>
-          
-           
         </div>
         <br>
         <div class='card scroll' id='navigation'>
@@ -101,7 +135,7 @@
         <br>
     </div>
     </main>
-
+    <!--includes the footer file -->
     {% include 'planner/footer.html' %}
 </body>
 

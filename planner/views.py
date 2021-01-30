@@ -7,6 +7,7 @@
 #imports 
 from django.contrib.auth import login
 from django.http import request
+from django.http.response import HttpResponseRedirect
 from . models import Task
 from cal.models import Event
 from django.shortcuts import render
@@ -83,30 +84,34 @@ def add_task(request):
     desc = request.POST["desc"]                    #save description field 
     priority = request.POST['priority']            #save priority field 
     title = request.POST["task"]                   #save task as title for alternate use 
-    # try and except loop to check if all input fields are filled in
+    
+     # check to see if hours field is filled
+    try: 
+        #check to see if the hours are a int
+        int(hours_planned) == int
+        correctdate=True
+    #do next loop if not an int
+    except ValueError:
+        # set default hours to one 
+        hours_planned = 1 
+        correctdate=False
+   
+    # try and except loop to check if datefield is filled
+   
     try:
         #try to parse the input date 
         getdate = datetime.datetime.strptime(str(date),"%Y-%m-%d")   
         #try to get individual fields from the date 
         newdate = datetime.datetime(getdate.year,getdate.month,getdate.day)
-        #check to see if the hours are a int
-        hours_planned == int
-        # if all of the above pass then set correct date as true 
-        correctdate=True
-        # print for debugging purposes 
-        print("true")
+        
     #if the above commands throw an error then move to except loop
     except ValueError:
         #set date to current date as default 
         date = datetime.date.today() 
         #set task_date to current date 
         task_date = datetime.date.today()
-        # set default hours to one 
-        hours_planned = 1 
-        # correct value to false 
-        correctdate=False
-        #print for debugging purposes 
-        print("false")
+
+   
 
     #set date to mystring 
     my_string = date    
@@ -153,30 +158,29 @@ def edittask(request):
     title = request.POST["task"]                    #save title field 
     correctdate=None                                #set correctfield boolean to None 
     
+    # try and except loop to check if datefield is filled
     try:
         #try to parse the input date 
         getdate = datetime.datetime.strptime(str(date),"%Y-%m-%d")   
         #try to get individual fields from the date 
         newdate = datetime.datetime(getdate.year,getdate.month,getdate.day)
-        #check to see if the hours are a int
-        hours_planned == int
-        # if all of the above pass then set correct date as true 
-        correctdate=True
-        # print for debugging purposes 
-        print("true")
+       
     #if the above commands throw an error then move to except loop
     except ValueError:
         #set date to current date as default 
         date = datetime.date.today() 
         #set task_date to current date 
         task_date = datetime.date.today()
+
+    # check to see if hours field is filled
+    try: 
+        #check to see if the hours are a int
+        int(hours_planned) == int
+    #do next loop if not an int
+    except ValueError:
         # set default hours to one 
         hours_planned = 1 
-        # correct value to false 
-        correctdate=False
-        #print for debugging purposes 
-        print("false")
-
+        
     #set date to mystring 
     my_string = date    
     #parse mystring to split the date into 3 different strings for day, month, and year                                     
@@ -224,31 +228,46 @@ def complete(request,item_id = None):
     #filter through the database using task id and change the completion boolean to true
     Task.objects.filter(id=item_id).update(complete=True)
     #redirect to home page 
-    return redirect('planner-home')
+    return redirect(request.META['HTTP_REFERER'])
            
+def help(request):
+    
+    return render(request, 'planner/help.html')
+
 #function to call dashboard page and define context variables 
 @login_required        #decorator to require login
 def dashboard (request): 
     my_date = datetime.date.today()                    #save today's date in local variable           
     this_week = "0"+ str(my_date.isocalendar()[1])     #save today's week as iso number in local variable 
-    #filter through database for total hours planned and save as local variable
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
-    
-    if totalhours != isinstance(totalhours,int):
-        totalhours = 0
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00) 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00) 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)   
+        # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
+    #define context variables
     context = {
+        #filter to assign totalhours var to totalhours
+        'totalhours': totalhours,
         #filter from current user and uncompleted tasks for total tasks
         'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),  
         #filter from current user and uncompleted tasks for high priority tasks                                
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),  
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),  
         #filter from current user and uncompleted tasks for medium priority tasks              
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
         #filter from current user and uncompleted tasks for low priority tasks          
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),  
         #filter from current user and uncompleted tasks for tasks this week                 
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()),
-        #filter to assign totalhours var to totalhours
-        'totalhours': totalhours,
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         #filter from current user and uncompleted tasks for tasks this month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),   
         #filter from current user and uncompleted tasks for tasks this year  
@@ -257,11 +276,6 @@ def dashboard (request):
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())    
        
     }
-
-    # print for debugging purposes
-    #print(''+str(Task.objects.all().count()))
-    #print(''+str(this_week))
-
     #return dashboard.html
     return render(request, 'planner/dashboard.html', context)
 
@@ -272,27 +286,33 @@ def alltasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    print(totalhours)
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
 
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
         'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),  
-        #filter from current user and uncompleted tasks for high priority tasks
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),                
-         #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),                
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
         'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),  
-        #filter from current user and uncompleted tasks to show all tasks       
         'items': Task.objects.filter(user_written = request.user).filter(complete=0).all(), 
         #filter from current user for completed tasks       
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count())                                               
@@ -307,34 +327,38 @@ def hightasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),           
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),    
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),  
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
         'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user and uncompleted tasks for high priority tasks 
-        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').all()
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').all()
             
     }
     #return alltasks.html page 
     return render(request, 'planner/alltasks.html', context)
-
 
 #method to set context variable when user wants to display medium prioriy tasks
 @login_required
@@ -343,29 +367,34 @@ def mediumtasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                               
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),       
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),     
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
-        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),  
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user and uncompleted tasks for medium priority tasks
-        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').all()
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').all()
                   
     }
     #return alltasks.html page 
@@ -378,29 +407,34 @@ def lowtasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),  
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),  
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()), 
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
-        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user and uncompleted tasks for low priority tasks   
-        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').all(),
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').all(),
     }
     # return alltasks.html page
     return render(request, 'planner/alltasks.html', context)
@@ -412,26 +446,31 @@ def monthtasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),   
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()), 
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
-        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user and uncompleted tasks for the month 
         'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).all()
@@ -448,31 +487,76 @@ def weektasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+     # check and set var if lower than 0
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),   
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),  
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
-        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user and uncompleted tasks for the week to show all
         'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week = this_week).all()
         
+    }
+    # return alltasks.html page
+    return render(request, 'planner/alltasks.html', context)
 
+#method to set context variable when user wants to display tasks today
+@login_required
+def daytasks(request): 
+    #set current date
+    my_date = datetime.date.today() 
+    #set current week as string 
+    this_week = "0"+ str(my_date.isocalendar()[1])
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
+    #define context variables
+    context = {
+        'totalhours': totalhours,
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),   
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),  
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
+        'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),
+        'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
+        #filter from current user and uncompleted tasks for the week to show all
+        'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day = this_day).all()
+        
     }
     # return alltasks.html page
     return render(request, 'planner/alltasks.html', context)
@@ -486,30 +570,34 @@ def yeartasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()), 
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),  
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
         'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
-        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),  
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user and uncompleted tasks for the year to show all
         'items': Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year = this_year).all(),        
-       
 
     }
     # return alltasks.html page 
@@ -522,26 +610,31 @@ def completetasks(request):
     my_date = datetime.date.today() 
     #set current week as string 
     this_week = "0"+ str(my_date.isocalendar()[1])
-    #find the total hours planned for uncompleted tasks
-    totalhours = Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)
+    this_day = timezone.now().day
+    #filter through database for hours planned and sort for total, this day, week and month and save as local variable
+    totalhours = int(Task.objects.filter(user_written = request.user).filter(complete=0).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00))  #filter through database for total hours planned and save as local variable 
+    hourmonth = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourweek = Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00)  #filter through database for total hours planned and save as local variable 
+    hourday = int(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).aggregate(Sum('hours_planned')).get('hours_planned__sum',0.00))  #filter through database for total hours planned and save as local variable 
+    # check and set var if lower than 1
+    if totalhours is None: totalhours = 0
+    if hourmonth is None: hourmonth = 0
+    if hourweek is None: hourweek = 0
+    if hourday is None: hourday = 0
     #define context variables
     context = {
         'totalhours': totalhours,
-        #filter from current user and uncompleted tasks for total tasks
-        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),                                
-        #filter from current user and uncompleted tasks for high priority tasks                      
-        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='high').count()),     
-        #filter from current user and uncompleted tasks for medium priority tasks
-        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='medium').count()),  
-        #filter from current user and uncompleted tasks for low priority tasks           
-        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='low').count()),
-        #filter from current user and uncompleted tasks for the week
+        'total' : str(Task.objects.filter(user_written = request.user).filter(complete=0).all().count()),      
+        'high' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='High').count()),     
+        'medium' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Medium').count()),  
+        'low' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(priority='Low').count()),
+        'day' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_day=this_day).count()),
+        'hourmonth': hourmonth,
+        'hourweek' : hourweek,
+        'hourday' : hourday,
         'week' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_week=this_week).count()), 
-        #filter from current user and uncompleted tasks for the month 
-        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()), 
-        #filter from current user and uncompleted tasks for the year
-        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),     
-        #filter from current user for completed tasks 
+        'month' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_month=this_month).count()),
+        'year' : str(Task.objects.filter(user_written = request.user).filter(complete=0).filter(date_added_year=this_year).count()),    
         'complete' : str(Task.objects.filter(user_written = request.user).filter(complete = 1).count()),  
         #filter from current user for completed tasks and show all
         'items': Task.objects.filter(user_written = request.user).filter(complete=1).all(),                       

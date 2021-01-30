@@ -2,7 +2,7 @@
 #    Mr. Moore
 #    ICS4U 
 #    Jan 29,2019
-#    middleware.py file for creating custom middleware for request and response objects  
+#    models.py file for creating the event database model for the calender to use  
 
 # imports 
 from django.db import models

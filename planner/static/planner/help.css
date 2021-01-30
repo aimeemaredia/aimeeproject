@@ -1,0 +1,259 @@
+/* Aimee Maredia 
+   Mr. Moore
+   ICS4U
+   Jan, 29th 2021
+   help.css field for styling the help page */
+
+/* label for task form field*/
+#helpdiv{
+    border-radius: 16px;
+    box-shadow: 1px 1px 2px;
+    background-color: #97afc0;
+}
+/* style for labels */
+#helplabel{
+    font-family: 'Roboto', sans-serif !important;
+  }
+/* style for input field */
+#inputhelp{
+    width: 800px;
+    margin-left: 75px;
+}
+/* cell spacing for input row */
+#help1, #help2, #help3{
+    width: 200px;
+    font-family: 'Roboto', sans-serif !important;
+    margin-left: 20px;
+}
+/* submit input*/
+#help4{
+    padding: 9px;
+    width: 275px;
+    position: relative;
+    left: -260px; 
+    top: 15px;
+    border-radius: 16px;
+    background-color: #e7dfc6;
+    color: black;
+    border: none;
+    box-shadow: 1px 1px 2px;
+}
+  /* date input */
+#helpdate{
+    padding: 5px;
+    width: 200px;
+    border-radius: 16px;
+    border: none;
+    box-shadow: 1px 1px 2px;
+    margin-left: 20px ;
+    font-family: 'Roboto', sans-serif !important;
+}
+/* priority input */
+#helppriority{
+    padding: 6px;
+    width: 200px;
+    border-radius: 16px;
+    height: 43px;
+    border: none;
+    box-shadow: 1px 1px 2px;
+    border-width: 2px;
+    margin-left: 20px;
+    font-family: 'Roboto', sans-serif !important;
+}
+/* article box style */
+#helparticletask{
+    font-family: 'Roboto', sans-serif !important;
+    position: relative;
+    top: 5px;
+    font-size: x-large;
+    line-height: 70px;
+    margin-left: 0px;
+    transition: all .1s ease-in-out; 
+}
+/* labels for the rigth side navigation */
+#helprightsidelabel{
+    font-family: 'Roboto-Condensed', sans-serif !important;
+    font-size: large;
+}
+/* article tag styling */
+#helparticle{
+    margin-left: 340px;
+    border-radius: 16px;  
+    line-height: 35px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 2px;
+    width: 370px;
+}
+/*H2 and H4 header tag styling */
+#h2, #h4{
+    font-family: 'Roboto'; 
+    margin-left: 50px;
+}
+#h2{
+    margin-top:50px;
+}
+/* page test styling */
+#p{
+    font-family: 'Roboto';  
+    margin-left: 70px;
+    margin-right: 70px;
+    font-size: large;
+}
+/* example detail div styling */
+#helpdetaildiv{
+    position:relative;
+    height: 420px;
+    left: 25%;  
+    box-shadow: 2px 2px 2px 0px;
+    border-radius: 16px;
+}
+/* detail title styling */
+#helptitle1{
+    font-family: 'Roboto', sans-serif !important;
+    position: relative;
+    top: 5px;
+    font-size: x-large;
+    line-height: 30px;
+    margin-left: 25px;
+    color: #2d3142;
+}
+/* detail subheading styles */
+#helpdetail, #helpdetail1, #helpdetail3{
+    line-height: 0px;
+    margin-right: 25px;
+    position: relative;
+    font-size: large;
+    font-family: 'Roboto-Condensed', sans-serif !important;
+    margin-left: 25px;
+}
+/* back button styling */
+#backh{
+    padding: 10px;
+    border: none;
+    box-shadow: 1px 1px 2px;
+    border-radius: 16px;
+    background-color:  #e7dfc6;
+    position: relative;
+    left: 50px; 
+    top: 15px; 
+    color: black;
+    width: 80px;
+}
+/*back button link styling */
+#backh a{
+    color: black;
+}
+/* detail text styling */
+#helpdetail{
+    padding: 10px;
+    float: right;
+}
+/* detail done button styling */
+#helpdone {
+    background-color: #e7dfc6;
+    left: 100px; 
+    top: 200px;
+    position: absolute;
+    left: 59%;
+    top: 360px;
+}
+/* delete button styling */
+      #helpdelete {
+        color: black;
+        background-color:  #e7dfc6;
+        position: absolute;
+        left: 75%; 
+        top: 360px; 
+      }
+/* dashboard example div style */
+      #helpcarddash{
+        width: 40%;
+        margin-left: 340px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        line-height: 20px;
+        padding: 2px 15px;
+        box-shadow: 2px 2px 2px 0px;
+        
+        }
+/* task list styles */
+       #alltasksarth{
+           margin-left: 10px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 16px;
+            box-shadow: 2px 2px 2px 0px;
+            height: 60px;
+            width: 98%;
+          }
+/* list table styling for cell dimensions */
+#cellid1h, #cellid2h, #cellid3h, #cellid4h, #cellid5h, #cellid6h, #cellid7h, #cellid8h, #cellid9h, #cellid10h, #cellid11h, #cellid12h{
+    position:relative;
+    top: -38px;
+}
+#cellid1h{
+    margin-left: 20px;
+    width: 40px;  
+}
+#cellid2h{
+    width: 130px;  
+}
+#cellid3h{
+   width: 80px;
+}
+#cellid4h{
+    width: 130px;
+}
+#cellid5h{
+    width: 95px;
+}
+#cellid6h{
+    width: 110px;
+}
+#cellid7h{
+    width: 110px;
+}
+#cellid8h{
+    width: 30px;
+}
+#cellid9h{
+    width: 50px;
+}
+#cellid10h{
+    width: 75px;
+}
+#cellid11h{
+    width: 75px;
+}
+#cellid12h{
+    width: 75px;
+}
+/* list complete button style */
+#completebuttonh{
+    background-color: #e7dfc6;
+    border: 0px inset black;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration:none;
+    box-shadow: 1px 1px 1px 0px;
+    margin: 4px 6px;
+    cursor: pointer;
+    border-radius: 16px;
+    position: relative;
+    float: right;
+    top: 0px;
+}    
+/* list button link style */   
+#completebuttonh a{
+    color: black;
+}  
+/*detail header*/
+#detailheaderh{
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: large;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+  }
+       
