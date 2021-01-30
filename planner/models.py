@@ -35,3 +35,8 @@ class Task(models.Model):
     priority = models.CharField(max_length=32)                                            #priority as charfield
     user_written = models.ForeignKey(User, default=1, verbose_name='user', on_delete=models.CASCADE) #set foreign key to User to sort through user tasks
 
+        #define property of model Event
+    @property
+    def get_html_url(self):                               #function to return link
+        url = reverse('task-detail', args=(self.id,))     #redirct user to task detail view, corresponding to task id 
+        return f'<a id ="calLink" href="{url}"> {self.task}</a>'       #return the link on form of html code with title 

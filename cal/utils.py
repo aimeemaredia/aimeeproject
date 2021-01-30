@@ -7,7 +7,7 @@
 #imports
 from datetime import datetime, timedelta
 from calendar import HTMLCalendar
-from .models import Event
+from planner.models import Task
 from cal.middleware import get_request
 
 
@@ -25,7 +25,7 @@ class Calendar(HTMLCalendar):
 	    #function formats a day as a td(cell in table) and filters through days.
 	def formatday(self, day, events):            
 		#loop filters to see if there are any tasks on the specific day 
-		events_per_day = events.filter(task_date__day=day)                  
+		events_per_day = events.filter(date__day=day)                  
 		d = ''
 		#checks all the events and prints out the name as a url if the task it on the specific day 
 		for event in events_per_day:                                       
@@ -53,7 +53,7 @@ class Calendar(HTMLCalendar):
 		user_id = get_request().user                                    
 
 		# define event varibale used in previous function as filtered object from current user and current month 
-		events = Event.objects.filter(username = user_id).filter(completion = 0).filter(task_date__year=self.year, task_date__month=self.month)
+		events = Task.objects.filter(user_written = user_id).filter(complete = 0).filter(date__year=self.year, date__month=self.month)
 
 
 		cal = f'<table border="1" cellpadding="0" cellspacing="0" class="calendar">\n'     #set bootstrap classes for calendar

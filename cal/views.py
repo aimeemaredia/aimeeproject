@@ -12,13 +12,13 @@ from django.views import generic
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 import calendar
-from .models import *
+from planner.models import *
 from .utils import Calendar
 
 #class CalendarView (object) to be displayed as a listview instance 
 class CalendarView(generic.ListView):
 
-    model = Event                                              #the database used will be Event
+    model = Task                                              #the database used will be Event
     template_name = 'cal/calendar.html'                        #the html template rendered will be calendar.html
 
     def get_context_data(self, **kwargs):                      #function context data with unbounded parameters (kwargs)
