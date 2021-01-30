@@ -1,7 +1,7 @@
 # Final Project - Taskable
 
 ## Important Files
-      (cal/static/styles.css)
+
     - cal/templates/base.html
     - cal/templates/calendar.html
     - cal/middleware.py
@@ -10,13 +10,15 @@
     - cal/utils.py
     - cal/views.py
     - FinalProject/settings.py
-    - planner/templates/calendar.html
-    - cal/templates/calendar.html
-    - cal/templates/calendar.html
-    - cal/templates/calendar.html
-    - cal/templates/calendar.html
-    - cal/templates/calendar.html
-
+    - planner/templates/  (all files)
+    - planner/static/   (all files)
+    - planner/models.py
+    - planner/urls.py
+    - planner/views.py
+    - users/templates/ (all files)
+    - users/models.py
+    - users/signals.py
+    - users/views.py
 
 ## Structure
 
