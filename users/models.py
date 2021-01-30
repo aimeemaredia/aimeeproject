@@ -14,7 +14,7 @@ class Profile(models.Model):
     #create user field which will be the current user 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     #create image field for profile image 
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='media/default.jpg', upload_to='profile_pics')
     
     #return the profile username as a string 
     def __str__(self):
