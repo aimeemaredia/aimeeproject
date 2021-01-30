@@ -749,9 +749,13 @@ input[type=email]{
       width: 50px;
     }
     .card-text{
-
       font-size: medium;
-    
+    }
+    /* input form margin */
+    #inputform{
+      margin-left: 9%;
+      margin-top: 0px;
+      line-height: 35px;
     }
 }
 /* help pahe div */

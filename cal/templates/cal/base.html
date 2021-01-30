@@ -30,12 +30,12 @@
   <!-- include top navigation bar html file-->
   {% include 'planner/topnav.html' %}
   <!-- html for left side bar-->
-  <div class="sidenav" id="leftnav">
-    <i href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i>
-    <a class="active" href="{% url 'planner-dashboard' %}">Dashboard</a>
-    <a class='active' href="{%url 'planner-home'%}">Add Task</a>
-    <a class='active' href="{%url 'cal:calendar'%}">Calendar</a>
-    <a href="#">Contact</a>
+  <!-- left side navigation -->  
+  <div class="sidenav" id="leftnav" >
+    <i  href="javascript:void(0)" class="fas fa-times" id="btnclose" onclick="closeNav()"></i> 
+    <a class="active" href="{% url 'planner-dashboard' %}" style="font-family: 'Roboto';">Dashboard</a>
+    <a class='active' href="{%url 'planner-home'%}" style="font-family: 'Roboto';">Add Task</a>
+    <a class='active' href="{%url 'cal:calendar'%}" style="font-family: 'Roboto';">Calendar</a>
   </div>
   <div class='main' id='main'>
     <!-- js functions to open and close the navbar-->
