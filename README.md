@@ -1,5 +1,23 @@
 # Final Project - Taskable
 
+## Important Files
+      (cal/static/styles.css)
+    - cal/templates/base.html
+    - cal/templates/calendar.html
+    - cal/middleware.py
+    - cal/models.py    
+    - cal/urls.py
+    - cal/utils.py
+    - cal/views.py
+    - FinalProject/settings.py
+    - planner/templates/calendar.html
+    - cal/templates/calendar.html
+    - cal/templates/calendar.html
+    - cal/templates/calendar.html
+    - cal/templates/calendar.html
+    - cal/templates/calendar.html
+
+
 ## Structure
 
     - Cal
