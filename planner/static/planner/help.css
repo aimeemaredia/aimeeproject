@@ -186,6 +186,7 @@
             width: 98%;
           }
 /* list table styling for cell dimensions */
+
 #cellid1h, #cellid2h, #cellid3h, #cellid4h, #cellid5h, #cellid6h, #cellid7h, #cellid8h, #cellid9h, #cellid10h, #cellid11h, #cellid12h{
     position:relative;
     top: -38px;
@@ -257,3 +258,60 @@
 
   }
        
+/* On smaller screens, where width is less than 1275px, change the style of the page*/
+@media screen and (max-width: 1467px){
+    /* dashboard cells */
+    #cellid1h, #cellid2h, #cellid3h, #cellid4h, #cellid5h, #cellid6h, #cellid7h, #cellid8h, #cellid9h, #cellid10h, #cellid11h, #cellid12h{
+        font-size: small;
+        position:relative;
+        top: 15px;
+    }
+    #cellid1h{
+        margin-left: 20px;
+        width: 30px;  
+    }
+    #cellid2h{
+        width: 110px;  
+    }
+    #cellid3h{
+       width: 70px;
+    }
+    #cellid4h{
+        width: 90px;
+    }
+    #cellid5h{
+        width: 85px;
+    }
+    #cellid6h{
+        width: 90px;
+    }
+    #cellid7h{
+        width: 90px;
+    }
+    #cellid8h{
+        width: 9px;
+    }
+    #cellid9h{
+        width: 35px;
+    }
+    #cellid10h{
+        width: 60px;
+    }
+    #cellid11h{
+        width: 60px;
+    }
+    #cellid12h{
+        width: 65px;
+    }
+    /* labels */
+    #helplabel{
+        font-family: 'Roboto', sans-serif !important;
+        font-size: small;
+      }
+    /* style for input field */
+    #inputhelp{
+        width: 400px;
+        margin-left: 25px;
+    }
+    
+}

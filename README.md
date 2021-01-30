@@ -2,6 +2,8 @@
 
 ## Important Files
 
+### Ignore the staticfiles folder (generated automatically)
+
     - cal/templates/base.html
     - cal/templates/calendar.html
     - cal/middleware.py

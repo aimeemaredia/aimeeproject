@@ -248,17 +248,17 @@ input[type=email]{
 }
 /* edit button */
 #edit { 
-  left: 97px; 
+  left: 18%; 
   top: 0px;
 }
 /* done button */
 #done {
-  left: 100px; 
+  left: 18%; 
   top: 0px;
 }
 /* delete button */
 #delete {
-  left: 100px; 
+  left: 18%; 
   top: 0px;  
 }
 /*back label*/
@@ -344,37 +344,37 @@ input[type=email]{
   }
   #cellid2{
     top:5px;
-    width: 180px;  
+    width: 170px;  
   }
   #cellid3{
-    width: 100px;
+    width: 80px;
   }
   #cellid4{
-    width: 150px;
+    width: 120px;
   }
   #cellid5{
-    width: 115px;
+    width: 100px;
   }
   #cellid6{
-    width: 150px;
+    width: 120px;
   }
   #cellid7{
-    width: 150px;
+    width: 110px;
   }
   #cellid8{
-    width: 50px;
+    width: 40px;
   }
   #cellid9{
     width: 70px;
   }
   #cellid10{
-    width: 150px;
+    width: 130px;
   }
   #cellid11{
     width: 95px;
   }
   #cellid12{
-    width: 95px;
+    width: 55px;
   }
   /*///////////////////////////////////////////////////////////////////////////*/
   /* article spacing*/
@@ -563,9 +563,10 @@ input[type=email]{
     overflow-y: hidden;
   } 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
+@media screen and (max-height: 450px) and (max-width:1000px){
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+
 }
 /*scroll class format*/
 .scroll{
@@ -617,10 +618,141 @@ input[type=email]{
 #sideentry{
   padding:0px 20px; 
 }
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
+/* On smaller screens, where width is less than 1275px, change the style of the page*/
+@media screen and (max-width: 1275px){
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+  #rightsidelabel{
+    font-family: 'Roboto-Condensed';
+    font-size: large;
+  }
+  /* label for task form fields*/
+  #label, #label-title{
+    font-family: 'Roboto';
+    font-size: medium;
+  }
+  /* rigth side bar article box */  
+  #article{
+    border-radius: 16px;  
+    line-height: 20px;
+    background-color: white;
+    box-shadow: 4px 4px 5px;
+  }
+  /*article header style */
+  #articleheader{
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    background-color: #c6dae9;
+    font-family: 'Roboto';
+  
+  }
+  /* article buttons */
+  #edit, #done, #delete{
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: medium;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 1px 1px 2px;
+    background-color: #e7dfc6;
+    border-style: none;
+  }
+  /* done button */
+  #doned {
+    font-family: 'Roboto';
+    font-weight: 400;
+    background-color: #e7dfc6;
+    left: 100px; 
+    top: 200px;
+    position: absolute;
+    left: 60%;
+    top: 525px;
+  }
+  /* delete button */
+  #deleted {
+    font-family: 'Roboto';
+    font-weight: 400;
+    background-color:  #e7dfc6;
+    position: absolute;
+    left: 76%; 
+    top: 525px; 
+  }
+   /*dashboard cards*/ 
+   #carddash{
+    background-color: #ffffff;
+    border-radius: 16px;
+    line-height: 17px;
+    padding: 2px 15px;
+    border: "none";
+    box-shadow: 2px 2px 2px 0px;
+    font-family: 'Roboto';
+  
+    }
+    /* dashboard card link formats */ 
+    .card-title, .card-title:visited,.card-title:active{
+      text-decoration: none;
+      font-family:'Roboto';
+      font-size: medium;
+      color: #0e052e;
+    }
+    /* cell formatting */
+    #cellid1, #cellid2, #cellid3, #cellid4, #cellid5, #cellid6, #cellid7, #cellid8, #cellid9, #cellid10, #cellid11, #cellid12{
+      font-family: 'Roboto';
+      position:relative;
+      top: 10px;
+      font-size: small;
+    }
+    #cellid1{
+      margin-left: 20px;
+      width: 50px;  
+    }
+    #cellid2{
+      top:5px;
+      width: 120px;  
+    }
+    #cellid3{
+      width: 70px;
+    }
+    #cellid4{
+      width: 100px;
+    }
+    #cellid5{
+      width: 85px;
+    }
+    #cellid6{
+      width: 100px;
+    }
+    #cellid7{
+      width: 95px;
+    }
+    #cellid8{
+      width: 40px;
+    }
+    #cellid9{
+      width: 60px;
+    }
+    #cellid10{
+      width: 100px;
+    }
+    #cellid11{
+      width: 85px;
+    }
+    #cellid12{
+      width: 50px;
+    }
+    .card-text{
+
+      font-size: medium;
+    
+    }
 }
 /* help pahe div */
 #helpdiv{
